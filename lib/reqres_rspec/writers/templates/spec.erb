@@ -199,11 +199,17 @@
     <% if @record[:response][:body].present? %>
       <h5>Body</h5>
       <ol>
-        <% JSON.pretty_generate(
-             JSON.parse(
-               @record[:response][:body]
-             )
-           ).split("\n").each do |line| %>
+        <% lines = begin
+                     JSON.pretty_generate(
+                       JSON.parse(
+                         @record[:response][:body]
+                       )
+                     )
+                   rescue
+                     @record[:response][:body]
+                   end
+
+           lines.split("\n").each do |line| %>
           <li><%= line %></li>
         <% end %>
       </ol>
