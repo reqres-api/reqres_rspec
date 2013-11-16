@@ -2,9 +2,7 @@ require "active_support/core_ext/module/attribute_accessors"
 
 require "reqres_rspec/version"
 require "reqres_rspec/collector"
-
-module ReqresRspec
-end
+require "reqres_rspec/writers/html"
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
@@ -20,8 +18,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
 
     config.after(:suite) do
       if collector.records.size > 0
-        puts 'TODO: save records'
-        puts collector.records.inspect
+        ReqresRspec::Writers::Html.new(collector.records).write
       end
     end
   end
