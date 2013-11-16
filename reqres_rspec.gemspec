@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ReqresRspec::VERSION
   spec.authors       = ["rilian"]
   spec.email         = ["dmitriyis@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Generates API documentation in PDF, HTML, JSON, YAML format for integration tests written with RSpec}
+  spec.summary       = %q{Generates API documentation in PDF, HTML, JSON, YAML format for integration tests written with RSpec}
   spec.homepage      = ""
   spec.license       = "MIT"
 
