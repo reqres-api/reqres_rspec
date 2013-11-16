@@ -1,8 +1,7 @@
-require "active_support/core_ext/module/attribute_accessors"
-
-require "reqres_rspec/version"
-require "reqres_rspec/collector"
-require "reqres_rspec/writers/html"
+require 'reqres_rspec/version'
+require 'reqres_rspec/collector'
+require 'reqres_rspec/writers/html'
+require 'reqres_rspec/generators/pdf'
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
@@ -19,6 +18,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     config.after(:suite) do
       if collector.records.size > 0
         ReqresRspec::Writers::Html.new(collector.records).write
+        ReqresRspec::Generators::Pdf.new.generate
       end
     end
   end
