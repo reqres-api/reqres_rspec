@@ -36,6 +36,8 @@ module ReqresRspec
 
     # collects spec data for further processing
     def collect(spec, request, response)
+      return if request.nil? || response.nil? || !defined?(request.env)
+
       description = query_parameters = backend_parameters = 'not available'
       params = []
       if request.env && (request_params = request.env['action_dispatch.request.parameters'])
