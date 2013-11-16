@@ -103,7 +103,10 @@ module ReqresRspec
         reject { |param| %w[controller action].include? param }.
         each do |key, value|
         if value.is_a? String
-          request_path = request_path.sub(value, ":#{key}") if request_path.index(value) >= 0
+          index = request_path.index(value)
+          if index && index >= 0
+            request_path = request_path.sub(value, ":#{key}")
+          end
         end
       end
 
