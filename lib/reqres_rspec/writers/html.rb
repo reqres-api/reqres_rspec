@@ -26,7 +26,7 @@ module ReqresRspec
       # deletes previous version of HTML docs
       # TODO: more info
       def cleanup
-        FileUtils.rm_rf(Dir.glob("#{Rails.root}/docs/rspec_docs_*.html"), secure: true)
+        FileUtils.rm_rf(Dir.glob("#{Rails.root}/doc/rspec_docs_*.html"), secure: true)
       end
 
       # generates contents of HTML docs
@@ -35,7 +35,7 @@ module ReqresRspec
         tpl_path = File.join(File.dirname(__FILE__), 'templates', 'header.erb')
         rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-        path = File.join(Rails.root, 'docs', 'rspec_docs_00000.html')
+        path = File.join(Rails.root, 'doc', 'rspec_docs_00000.html')
         file = File.open(path, 'w')
         file.write(rendered_doc)
         file.close
@@ -53,7 +53,7 @@ module ReqresRspec
 
           rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-          path = File.join(Rails.root, 'docs', "rspec_docs_#{('0000' + (@index).to_s)[-5, 5]}.html")
+          path = File.join(Rails.root, 'doc', "rspec_docs_#{('0000' + (@index).to_s)[-5, 5]}.html")
           file = File.open(path, 'w')
           file.write(rendered_doc)
           file.close

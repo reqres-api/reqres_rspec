@@ -5,8 +5,8 @@ module ReqresRspec
       # TODO: more info
       def generate
         wkhtmltopdf_path = '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf'
-        html_docs_root = File.join(Rails.root, 'docs')
-        pdf_doc_path = File.join(Rails.root, 'docs', "spec_#{Time.now.strftime("%d-%h-%Y_%H-%M")}.pdf")
+        html_docs_root = File.join(Rails.root, 'doc')
+        pdf_doc_path = File.join(Rails.root, 'doc', "spec_#{Time.now.strftime("%d-%h-%Y_%H-%M")}.pdf")
 
         if File.exists?(wkhtmltopdf_path)
           files = Dir["#{html_docs_root}/rspec_docs_*.html"]
