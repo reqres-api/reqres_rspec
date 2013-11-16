@@ -4,17 +4,9 @@ require "reqres_rspec/version"
 require "reqres_rspec/collector"
 
 module ReqresRspec
-  # define if all doc generation is enabled
-  mattr_accessor :enabled
 end
 
-ReqresRspec.enabled = defined?(RSpec)
-
-if !ReqresRspec.enabled
-  puts "\nWARNING: ReqresRspec is disabled\n"
-end
-
-if ReqresRspec.enabled
+if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
 
   RSpec.configure do |config|
@@ -33,4 +25,6 @@ if ReqresRspec.enabled
       end
     end
   end
+else
+  puts "\nNOTICE: ReqresRspec is disabled. run RSpec with REQRES_RSPEC=1 environment var\n"
 end

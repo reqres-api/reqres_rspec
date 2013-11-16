@@ -1,6 +1,3 @@
-#require "active_support/core_ext/module/attribute_accessors"
-#require 'reqres_rspec'
-
 module ReqresRspec
   class Collector
     # Contains spec values read from rspec example, request and response
@@ -39,7 +36,7 @@ module ReqresRspec
 
     # collects spec data for further processing
     def collect(spec, request, response)
-      record = {
+      self.records << {
         title: spec.example.full_description,
         description: get_action_description(request.env['action_dispatch.request.parameters']['controller'], request.env['action_dispatch.request.parameters']['action']),
         params: get_action_params(request.env['action_dispatch.request.parameters']['controller'], request.env['action_dispatch.request.parameters']['action']),
@@ -63,8 +60,6 @@ module ReqresRspec
           headers: read_response_headers(response),
         }
       }
-
-      self.records << record
     end
 
     private
