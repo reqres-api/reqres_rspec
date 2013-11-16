@@ -1,6 +1,6 @@
 # ReqresRspec
 
-TODO: Write a gem description
+Gem generates API documentation from your integration tests written with `rspec`. No additional DSL needed. Beside covering rspec tests, documentation may be extended with API controller action comments win `yardoc` style. Documentation is generated in JSON, YAML, HTML, PDF formats.
 
 ## Installation
 
@@ -17,6 +17,16 @@ Or install it yourself as:
     $ gem install reqres_rspec
 
 ## Usage
+
+### Sample controller action
+
+TODO: Write usage instructions here
+
+### Sample rspec test
+
+TODO: Write usage instructions here
+
+### Generates documentation example
 
 TODO: Write usage instructions here
 
