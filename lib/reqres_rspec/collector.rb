@@ -36,18 +36,29 @@ module ReqresRspec
 
     # collects spec data for further processing
     def collect(spec, request, response)
+      description = query_parameters = backend_parameters = 'not available'
+      params = []
+      if request.env && (request_params = request.env['action_dispatch.request.parameters'])
+        if request_params['controller'] && request_params['action']
+          description = get_action_description(request_params['controller'], request_params['action'])
+          params = get_action_params(request_params['controller'], request_params['action'])
+          query_parameters = request_params.reject { |p| %w[controller action].include? p }
+          backend_parameters = request_params.reject { |p| !%w[controller action].include? p }
+        end
+      end
+
       self.records << {
         title: spec.example.full_description,
-        description: get_action_description(request.env['action_dispatch.request.parameters']['controller'], request.env['action_dispatch.request.parameters']['action']),
-        params: get_action_params(request.env['action_dispatch.request.parameters']['controller'], request.env['action_dispatch.request.parameters']['action']),
+        description: description,
+        params: params,
         request_path: get_symbolized_path(request),
         request: {
           host: request.host,
           url: request.url,
           path: request.path,
           method: request.request_method,
-          query_parameters: request.env['action_dispatch.request.parameters'].reject { |p| %w[controller action].include? p },
-          backend_parameters: request.env['action_dispatch.request.parameters'].reject { |p| !%w[controller action].include? p },
+          query_parameters: query_parameters,
+          backend_parameters: backend_parameters,
           body: request.body.read,
           content_length: request.content_length,
           content_type: request.content_type,
