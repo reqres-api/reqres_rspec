@@ -6,12 +6,22 @@ module ReqresRspec
       end
 
       def write
+        recreate_doc_dir
         cleanup
         generate_header
         generate_specs
       end
 
       private
+
+      # recreates /doc dir if it does not exist
+      def recreate_doc_dir
+        doc_dir = File.join(Rails.root, 'doc')
+        unless Dir.exist?(doc_dir)
+          Dir.mkdir(doc_dir)
+          puts "#{doc_dir} was recreated"
+        end
+      end
 
       # deletes previous version of HTML docs
       # TODO: more info
