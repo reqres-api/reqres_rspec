@@ -8,6 +8,8 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
 
   RSpec.configure do |config|
     config.after(:each) do
+      # TODO: remove boilerplate code
+      # TODO: better options
       unless self.example.options.has_key?(:collect_for_doc) && !self.example.options[:collect_for_doc]
         if defined?(self.request) && defined?(self.response)
           collector.collect(self, self.request, self.response)

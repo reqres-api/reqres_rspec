@@ -36,6 +36,7 @@ module ReqresRspec
 
     # collects spec data for further processing
     def collect(spec, request, response)
+      # TODO: remove boilerplate code
       return if request.nil? || response.nil? || !defined?(request.env)
 
       description = query_parameters = backend_parameters = 'not available'
