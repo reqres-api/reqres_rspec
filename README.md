@@ -27,7 +27,7 @@ cd ~/Downloads
 wget http://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-OS-X.i368
 cp ~/Downloads/wkhtmltopdf-0.9.9-OS-X.i368 /Applications
 chmod +x /Applications/wkhtmltopdf-0.9.9-OS-X.i368
-`
+```
 
 You can configure path to wkhtmltopdf in reqres_rspec.yml if you use other OS. Please check http://code.google.com/p/wkhtmltopdf for your OS version
 
