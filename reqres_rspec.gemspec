@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dmitriyis@gmail.com"]
   spec.description   = %q{Generates API documentation in PDF, HTML, JSON, YAML format for integration tests written with RSpec}
   spec.summary       = %q{Generates API documentation in PDF, HTML, JSON, YAML format for integration tests written with RSpec}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/reqres-api/reqres_rspec"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
