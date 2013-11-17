@@ -10,11 +10,15 @@ module ReqresRspec
 
         if File.exists?(wkhtmltopdf_path)
           files = Dir["#{html_docs_root}/rspec_docs_*.html"]
-          files_arg = files.map { |f| f if f =~ /\/rspec_docs_\d+\.html/ }.compact.sort.join(' ')
+          if files.size > 0
+            files_arg = files.map { |f| f if f =~ /\/rspec_docs_\d+\.html/ }.compact.sort.join('" "')
 
-          `#{wkhtmltopdf_path} #{files_arg} #{pdf_doc_path}`
+            `#{wkhtmltopdf_path} "#{files_arg}" "#{pdf_doc_path}"`
 
-          puts "saved to #{pdf_doc_path}" if File.exists? pdf_doc_path
+            puts "saved to #{pdf_doc_path}" if File.exists? pdf_doc_path
+          else
+            puts 'No HTML files found'
+          end
         else
           puts 'ERROR: wkhtmltopdf app not installed! Please check http://code.google.com/p/wkhtmltopdf/ for more info'
         end
