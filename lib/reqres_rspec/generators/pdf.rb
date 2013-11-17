@@ -4,7 +4,7 @@ module ReqresRspec
       # generates PDF file from existing HTML docs
       # TODO: more info
       def generate
-        wkhtmltopdf_path = '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf'
+        wkhtmltopdf_path = '/Applications/wkhtmltopdf'
         html_docs_root = File.join(Rails.root, 'doc')
         pdf_doc_path = File.join(Rails.root, 'doc', "spec_#{Time.now.strftime("%d-%h-%Y_%H-%M")}.pdf")
 
@@ -20,7 +20,7 @@ module ReqresRspec
             puts 'No HTML files found'
           end
         else
-          puts 'ERROR: wkhtmltopdf app not installed! Please check http://code.google.com/p/wkhtmltopdf/ for more info'
+          puts 'ERROR: wkhtmltopdf app not installed! Please check README.md for more info'
         end
       end
     end

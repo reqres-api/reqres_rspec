@@ -26,5 +26,5 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     end
   end
 else
-  puts "\nNOTICE: ReqresRspec is disabled. run RSpec with REQRES_RSPEC=1 environment var\n"
+  puts "\nNOTICE: ReqresRspec is disabled. run `REQRES_RSPEC=1 bundle exec rspec`\n"
 end
