@@ -20,16 +20,16 @@ Or install it yourself as:
 
 ### PDF generator
 
-PDF generator is based on `wkhtmltopdf`. For Mac OS please use older 0.9.9 version to produce textual PDF files. Later versions will produce PDF that consists from images, so you could not search text in your docs.
+Install `prince` http://www.princexml.com/download/
+
+For MacOS this will be
 
 ```
-cd ~/Downloads
-wget http://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-OS-X.i368
-cp ~/Downloads/wkhtmltopdf-0.9.9-OS-X.i368 /Applications
-chmod +x /Applications/wkhtmltopdf-0.9.9-OS-X.i368
+wget http://www.princexml.com/download/prince-9.0r2-macosx.tar.gz
+tar -xvf prince-9.0r2-macosx.tar.gz
+cd prince-9.0r2-macosx
+./install.sh
 ```
-
-You can configure path to wkhtmltopdf in reqres_rspec.yml if you use other OS. Please check http://code.google.com/p/wkhtmltopdf for your OS version
 
 ## Usage
 

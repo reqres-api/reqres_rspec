@@ -4,6 +4,8 @@
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   <style>
+    @page { size: 24.5cm 35cm } /* http://www.princexml.com/doc/9.0/page-size/ */
+
     body {
       color: #333333;
       font-family: 'Verdana', 'Droid Sans', sans-serif;
@@ -17,7 +19,8 @@
       box-sizing: border-box;
     }
     .container {
-      padding: 40px;
+      padding: 0;
+      width: 100%;
     }
     h1, h2, ul {
       margin: 0 0 10px;
@@ -61,7 +64,7 @@
     <% @records.each_with_index do |record, index| %>
       <li>
         <%= index+1 %>.
-        <a href="rspec_docs_<%= ('0000' + (index + 1).to_s)[-5, 5] %>.html">
+        <a href="rspec_doc_<%= ('0000' + (index + 1).to_s)[-5, 5] %>.html">
           <%= record[:title] %>
         </a>
       </li>

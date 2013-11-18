@@ -4,6 +4,8 @@
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   <style>
+    @page { size: 24.5cm 35cm } /* http://www.princexml.com/doc/9.0/page-size/ */
+
     body {
       color: #333333;
       font-family: 'Verdana', 'Droid Sans', sans-serif;
@@ -17,7 +19,8 @@
       box-sizing: border-box;
     }
     .container {
-      padding: 40px;
+      padding: 0;
+      width: 100%;
     }
     h1, h2, ul {
       margin: 0 0 10px;
@@ -141,7 +144,7 @@
 <body>
   <div class="container">
     <h3>
-      <a href="rspec_docs_00000.html">&#9650</a>
+      <a href="rspec_doc_00000.html">&#9650</a>
       <a id="<%= @index %>"></a><%= @index %>. <%= @record[:title] %>
     </h3>
 
