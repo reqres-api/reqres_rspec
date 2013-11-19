@@ -89,6 +89,18 @@ Documentation is written in HTML format, which then converted to PDF. PDF files 
 
 TODO: Write instruction on gem configuration
 
+## Future plans
+
+1) Write documentation in YAML, JSON formats
+
+2) Add configuration (folders with API specs, default generate spec for all examples, or opt-in generation)
+
+3) Cover with tests
+
+4) Remove dependency on `rails`
+
+5) Add demo for `Rails`, `Rails API`, `Sinatra`
+
 ## Contributing
 
 1. Fork it
