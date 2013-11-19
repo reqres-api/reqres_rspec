@@ -1,6 +1,6 @@
 # ReqresRspec
 
-Gem generates API documentation from your integration tests written with `rspec`. No additional DSL needed. Beside covering rspec tests, documentation may be extended with API controller action comments win `yardoc` style. Documentation is generated in JSON, YAML, HTML, PDF formats.
+Gem generates API documentation from your integration tests written with `rspec`. No additional DSL needed. Beside covering rspec tests, documentation may be extended with API controller action comments in `yardoc` style. Documentation is generated in JSON, YAML, HTML, PDF formats.
 
 ## Installation
 
@@ -20,9 +20,7 @@ Or install it yourself as:
 
 ### PDF generator
 
-Install `prince` http://www.princexml.com/download/
-
-For MacOS this will be
+Install `prince` http://www.princexml.com/download/ . For MacOS this will be
 
 ```
 wget http://www.princexml.com/download/prince-9.0r2-macosx.tar.gz
@@ -35,15 +33,41 @@ cd prince-9.0r2-macosx
 
 ### Sample controller action
 
-TODO: Write usage instructions here
+```ruby
+  # @description creates Category from given parameters
+  # description text may be multiline
+  # @params category[title] required String Category title
+  # @params category[weight] in which order Category will be shown
+  # param text may also be multiline
+  def create
+    category = Category.new(create_category_params)
+
+    if category.save
+      render json: { category: category }.to_json, status: 201
+    else
+      render json: { errors: category.errors.full_messages }, status: 422
+    end
+  end
+```
 
 ### Sample rspec test
 
-TODO: Write usage instructions here
+```ruby
+  describe 'Create' do
+    it 'creates category' do
+      post :create, category: { name: 'Cookies' }
+      expect(response.status).to eq 201
+      expect(JSON.parse(response.body)['category']['name']).to eq 'Cookies'
+      expect(Category.count).to eq 1
+    end
+  end
+```
 
 ### Generates documentation example
 
-TODO: Write usage instructions here
+[![Generated Doc](http://i44.tinypic.com/kda1pw.png)](http://i44.tinypic.com/kda1pw.png)
+
+[![Generated Doc](http://i39.tinypic.com/2w3p6vl.png)](http://i39.tinypic.com/2w3p6vl.png)
 
 ## Contributing
 
