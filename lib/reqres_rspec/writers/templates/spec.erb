@@ -183,7 +183,7 @@
     <code><%= @record[:request][:method] %> <%= @record[:request][:path] %></code>
 
     <h5>Query parameters</h5>
-    <code><%= @record[:request][:query_parameters] %></code>
+    <code><%= @record[:request][:query_parameters] if @record[:request][:method] == 'GET' %></code>
 
     <h5><a href="http://curl.haxx.se/docs/manpage.html">CURL</a> Example</h5>
     <code>TODO</code>
