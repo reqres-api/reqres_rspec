@@ -68,13 +68,13 @@ Each param text is started with `@params` and first word will be param name, the
       ...
     end
 
-    it 'some other example', collect_for_doc: false do
+    it 'some other example', :skip_reqres do
       ...
     end
   end
 ```
 
- By default all examples will be added to docs. Example may be excluded from docs with option `collect_for_doc: false`
+ By default all examples will be added to docs. Example may be excluded from docs with option `:skip_reqres`
 
  Doc will use full example description, as a title for each separate spec
 
