@@ -10,9 +10,12 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     config.after(:each) do
       # TODO: remove boilerplate code
       # TODO: better options
-      unless self.example.options.has_key?(:collect_for_doc) && !self.example.options[:collect_for_doc]
-        if defined?(self.request) && defined?(self.response)
-          collector.collect(self, self.request, self.response)
+      meta_data = self.class.example.metadata
+      if meta_data[:type] == :request
+        begin
+          collector.collect(self, self.request, self.response) unless meta_data[:skip_reqres] == true
+        rescue NameError
+          raise $!
         end
       end
     end

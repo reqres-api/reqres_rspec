@@ -50,9 +50,17 @@ module ReqresRspec
         end
       end
 
+      ex_gr = spec.class.example.metadata[:example_group]
+      section = ex_gr[:description]
+      while !ex_gr.nil? do
+        section = ex_gr[:description]
+        ex_gr = ex_gr[:parent_example_group]
+      end
+
       self.records << {
-        title: spec.example.full_description,
-        description: description,
+        group: section, # Top level example group
+        title: spec.class.example.full_description,
+        description: spec.class.description,
         params: params,
         request_path: get_symbolized_path(request),
         request: {
@@ -155,8 +163,10 @@ module ReqresRspec
 
         comment_lines.reverse
       else
-        'not found'
+        ['not found']
       end
+    rescue Errno::ENOENT
+      ['not found']
     end
 
     # returns description action comments

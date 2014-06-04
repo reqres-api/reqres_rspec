@@ -10,7 +10,7 @@
       color: #333333;
       font-family: 'Verdana', 'Droid Sans', sans-serif;
       font-size: 14px;
-      padding: 0;
+      padding: 15px;
       margin: 0;
     }
     body *{
@@ -66,7 +66,7 @@
       border-radius: 4px;
       overflow: hidden;
     }
-    table{
+    table.params{
       width: 100%;
       font-size: 1em;
       padding: 0;
@@ -74,29 +74,29 @@
       border-collapse: collapse;
       border-spacing: 0px;
     }
-    tr{
+    table.params tr{
       border-top: 1px solid #cccccc;
     }
-    tr:first-child{
+    table.params tr:first-child{
       border-top: 0
     }
-    th, td{
+    table.params th, td{
       margin: 0;
       padding: 5px 8px;
       text-align: left;
       border-left: 1px solid #cccccc;
       font-size: 1em;
     }
-    th:first-child, td:first-child{
+    table.params th:first-child, td:first-child{
       border-left: 0;
     }
-    td{
+    table.params td{
       background: #f9f9f9;
     }
-    tr:nth-child(2n+1) td{
+    table.params tr:nth-child(2n+1) td{
       background: #ffffff;
     }
-    td i{
+    table.params td i{
       font-style: normal;
       font-weight: 300;
       float: right;
@@ -121,6 +121,12 @@
     code i{
       font-weight: 400;
       font-style: normal;
+    }
+    .CodeRay td {
+      width: 99%;
+    }
+    .CodeRay td.line-numbers {
+      width: 1%;
     }
     ol{
       margin: 0 0 10px 0;
@@ -155,7 +161,7 @@
     <% if @record[:params].size > 0 %>
       <h5>Parameters</h5>
       <div class="table">
-        <table>
+        <table class="params">
           <tr>
             <th>Name</th>
             <th>Type</th>
@@ -192,7 +198,7 @@
       <h5>Body</h5>
       <ol>
         <% @record[:request][:body].split("\n").each do |line| %>
-          <li><%= line %></li>
+          <li style="word-break:&;"><%= line %></li>
         <% end %>
       </ol>
     <% end %>
@@ -209,21 +215,18 @@
 
     <% if @record[:response][:body].present? %>
       <h5>Body</h5>
-      <ol>
-        <% lines = begin
-                     JSON.pretty_generate(
-                       JSON.parse(
-                         @record[:response][:body]
-                       )
+      <% lines = begin
+                   JSON.pretty_generate(
+                     JSON.parse(
+                       @record[:response][:body]
                      )
-                   rescue
-                     @record[:response][:body]
-                   end
-
-           lines.split("\n").each do |line| %>
-          <li><%= line %></li>
-        <% end %>
-      </ol>
+                   )
+                 rescue
+                   @record[:response][:body]
+                 end %>
+      <code>
+        <%= CodeRay.scan(lines, :json).div(line_numbers: :table) %>
+      </code>
     <% end %>
   </div>
 </body>
