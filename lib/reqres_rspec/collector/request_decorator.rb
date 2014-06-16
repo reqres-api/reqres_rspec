@@ -3,24 +3,6 @@ module ReqresRspec
     class RequestDecorator
       attr_reader :action
 
-      # request headers contain many unnecessary information,
-      # everything that match items from this list will be stripped
-      EXCLUDE_REQUEST_HEADER_PATTERNS = %w[
-        rack.
-        action_dispatch
-        REQUEST_METHOD
-        SERVER_NAME
-        SERVER_PORT
-        QUERY_STRING
-        SCRIPT_NAME
-        CONTENT_LENGTH
-        HTTPS
-        HTTP_HOST
-        HTTP_USER_AGENT
-        REMOTE_ADDR
-        PATH_INFO
-      ]
-
       def initialize(request)
         @request = request
         @action = Action.new(request_params['controller'], request_params['action'])

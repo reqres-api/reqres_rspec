@@ -25,12 +25,14 @@ module ReqresRspec
       return if request.nil? || response.nil? || !defined?(request.env)
 
       request = RequestDecorator.new(request)
+      response = ResponseDecorator.new(response)
 
       description = query_parameters = backend_parameters = 'not available'
 
       if request.env && request.params
         if request.params['controller'] && request.params['action']
           description = request.action.description
+
           backend_parameters, query_parameters = request.params.partition do |p|
             %w[controller action].include? p
           end
@@ -51,29 +53,13 @@ module ReqresRspec
         params: (request.action.params || []),
         request_path: request.symbolized_path,
         request: request.to_h,
-        response: {
-          code: response.status,
-          body: response.body,
-          headers: read_response_headers(response),
-        }
+        response: response.to_h
       }
     end
 
     # sorts records alphabetically
     def sort
       self.records.sort!{ |x,y| x[:request_path] <=> y[:request_path] }
-    end
-
-    private
-
-    # read and cleanup response headers
-    # returns Hash
-    def read_response_headers(response)
-      headers = response.headers
-      EXCLUDE_RESPONSE_HEADER_PATTERNS.each do |pattern|
-        headers = headers.reject { |h| h if h.starts_with? pattern }
-      end
-      headers
     end
   end
 end
