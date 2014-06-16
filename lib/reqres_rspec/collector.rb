@@ -1,3 +1,6 @@
+require 'collector/request_decorator'
+require 'collector/action'
+
 module ReqresRspec
   class Collector
     # Contains spec values read from rspec example, request and response
