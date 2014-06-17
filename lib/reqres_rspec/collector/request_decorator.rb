@@ -5,10 +5,11 @@ module ReqresRspec
 
       def initialize(request)
         @request = request
-        @action = Action.new(request_params['controller'], request_params['action'])
+        @action = Action.new(params['controller'], params['action'])
       end
 
-      delegate %i[env host url path request_method body content_length content_type accept], to: :@request
+      delegate :env, :host, :url, :path, :request_method,
+        :body, :content_length, :content_type, :accept, to: :@request
 
       def to_h
         {

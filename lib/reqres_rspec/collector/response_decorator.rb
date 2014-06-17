@@ -19,7 +19,7 @@ module ReqresRspec
         PATH_INFO
       ]
 
-      delegate %i[status body headers], to: @response
+      delegate :status, :body, :headers, to: :@response
 
       def initialize(response)
         @response = response
