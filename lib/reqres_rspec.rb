@@ -2,6 +2,9 @@ require 'reqres_rspec/version'
 require 'reqres_rspec/collector'
 require 'reqres_rspec/writers/html'
 require 'reqres_rspec/generators/pdf'
+require 'reqres_rspec/collector/request_decorator'
+require 'reqres_rspec/collector/response_decorator'
+require 'reqres_rspec/collector/action'
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
