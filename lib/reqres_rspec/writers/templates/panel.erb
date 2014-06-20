@@ -93,9 +93,9 @@
       <% items.group_by{|h| h[:request_path]}.each do |path, records| %>
         <h3><%= path %></h3>
         <ul>
-          <% records.each_with_index do |record, index| %>
+          <% records.each do |record| %>
             <li>
-              <a href="rspec_doc_<%= (index + 1).to_s.rjust(5, '0') %>.html" target="specs">
+              <a href="rspec_doc_<%= (@records.index(record) + 1).to_s.rjust(5, '0') %>.html" target="specs">
                 <span class="method <%= record[:request][:method].downcase %>"><%= record[:request][:method] %></span>
                 <%= record[:description] %><br />
               </a>
