@@ -33,7 +33,7 @@ cd prince-9.0r2-macosx
 
 by default `reqres_rspec` is not active (this may be configured!). To activate it, run `rspec` with
 
-`REQRES_RSPEC=1 bundle exec rspec`
+`REQRES_RSPEC=1 bundle exec rspec --order=defined`
 
 Documentation will be put into your application's `/doc` folder
 
