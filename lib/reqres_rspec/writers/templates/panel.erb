@@ -97,7 +97,7 @@
             <li>
               <a href="rspec_doc_<%= (@records.index(record) + 1).to_s.rjust(5, '0') %>.html" target="specs">
                 <span class="method <%= record[:request][:method].downcase %>"><%= record[:request][:method] %></span>
-                <%= record[:description] %><br />
+                <%= record[:title] %><br />
               </a>
             </li>
           <% end %>
