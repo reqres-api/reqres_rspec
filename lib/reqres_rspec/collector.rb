@@ -16,7 +16,9 @@ module ReqresRspec
     # everything that match items from this list will be stripped
     EXCLUDE_REQUEST_HEADER_PATTERNS = %w[
       rack.
+      ROUTES_
       action_dispatch
+      action_controller.
       REQUEST_METHOD
       SERVER_NAME
       SERVER_PORT
@@ -28,6 +30,10 @@ module ReqresRspec
       HTTP_USER_AGENT
       REMOTE_ADDR
       PATH_INFO
+      ORIGINAL_FULLPATH
+      ORIGINAL_SCRIPT_NAME
+      HTTP_COOKIE
+      HTTP_ORIGIN
     ]
 
     def initialize
