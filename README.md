@@ -42,8 +42,8 @@ Documentation will be put into your application's `/doc` folder
 ```ruby
   # @description creates Category from given parameters
   # description text may be multiline
-  # @params category[title] required String Category title
-  # @params category[weight] in which order Category will be shown
+  # @param category[title] required String Category title
+  # @param category[weight] in which order Category will be shown
   # param text may also be multiline
   def create
     category = Category.new(create_category_params)
@@ -57,7 +57,7 @@ Documentation will be put into your application's `/doc` folder
 ```
 
 Description param text is started with `@description` and may be multiline.
-Each param text is started with `@params` and first word will be param name, then optionally `required`, then optionally type (`Integer`, `String` etc), and finally param description, which may be multiline as well.
+Each param text is started with `@param` and first word will be param name, then optionally `required`, then optionally type (`Integer`, `String` etc), and finally param description, which may be multiline as well.
 
 ### Sample rspec test
 

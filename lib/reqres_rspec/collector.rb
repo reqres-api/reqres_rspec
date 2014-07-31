@@ -185,7 +185,7 @@ module ReqresRspec
         if line.match /\s*#\s*@description/ # @description blah blah
           description << line.gsub(/\A\s*#\s*@description/, '').strip
           comment_lines[(index + 1)..-1].each do |multiline|
-            if !multiline.match /\s*#\s*@params/
+            if !multiline.match /\s*#\s*@param/
               description << multiline.gsub(/\A\s*#\s*/, '').strip
             else
               break
@@ -205,12 +205,12 @@ module ReqresRspec
       text_params = []
       has_param = false
       comment_lines.each do |line|
-        if line.match /\s*#\s*@params/ # @params id required Integer blah blah
+        if line.match /\s*#\s*@param/ # @param id required Integer blah blah
           has_param = true
           text_params << ''
         end
         if has_param
-          line = line.gsub(/\A\s*#\s*@params/, '').strip
+          line = line.gsub(/\A\s*#\s*@param/, '').strip
           line = line.gsub(/\A\s*#\s*/, '').strip
           text_params.last << line
         end
