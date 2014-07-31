@@ -89,7 +89,7 @@ module ReqresRspec
       self.records.sort!{ |x,y| x[:request_path] <=> y[:request_path] }
     end
 
-    private
+  private
 
     # read and cleanup response headers
     # returns Hash
@@ -197,13 +197,16 @@ module ReqresRspec
       comment_lines = get_action_comments(controller, action)
 
       text_params = []
-      last_new_param_index = nil
-      comment_lines.each_with_index do |line, index|
+      has_param = false
+      comment_lines.each do |line|
         if line.match /\s*#\s*@params/ # @params id required Integer blah blah
-          last_new_param_index = index
-          text_params << line.gsub(/\A\s*#\s*@params/, '').strip
-        elsif last_new_param_index && last_new_param_index == index - 1
-          text_params.last << " #{line.gsub(/\A\s*#\s*/, '').strip}"
+          has_param = true
+          text_params << ''
+        end
+        if has_param
+          line = line.gsub(/\A\s*#\s*@params/, '').strip
+          line = line.gsub(/\A\s*#\s*/, '').strip
+          text_params.last << line
         end
       end
 
