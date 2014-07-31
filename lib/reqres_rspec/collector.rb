@@ -60,7 +60,7 @@ module ReqresRspec
       self.records << {
         group: section, # Top level example group
         title: spec.class.example.full_description,
-        description: spec.class.description,
+        description: description,
         params: params,
         request_path: get_symbolized_path(request),
         request: {
