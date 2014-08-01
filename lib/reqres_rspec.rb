@@ -11,9 +11,9 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
       # TODO: remove boilerplate code
       # TODO: better options
       meta_data = self.class.example.metadata
-      if meta_data[:type] == :request
+      if meta_data[:type] == :request && !meta_data[:skip_reqres] == true
         begin
-          collector.collect(self, self.request, self.response) unless meta_data[:skip_reqres] == true
+          collector.collect(self, self.request, self.response)
         rescue NameError
           raise $!
         end

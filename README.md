@@ -62,19 +62,20 @@ Each param text is started with `@param` and first word will be param name, then
 ### Sample rspec test
 
 ```ruby
-  describe 'Create' do
-    it 'creates category' do
-      post :create, category: { name: 'Cookies' }
+  context 'With valid params' do
+    it 'bakes pie' do
       ...
     end
+  end
 
-    it 'some other example', :skip_reqres do
+  context 'With invalid params', :skip_reqres do
+    it 'returns errors' do
       ...
     end
   end
 ```
 
- By default all examples will be added to docs. Example may be excluded from docs with option `:skip_reqres`
+ By default all examples will be added to docs. A context of examples (`context` and `describe` blocks)may be excluded from docs with option `:skip_reqres`
 
  Doc will use full example description, as a title for each separate spec
 
