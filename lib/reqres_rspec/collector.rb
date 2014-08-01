@@ -34,6 +34,7 @@ module ReqresRspec
       ORIGINAL_SCRIPT_NAME
       HTTP_COOKIE
       HTTP_ORIGIN
+      RAW_POST_DATA
     ]
 
     def initialize
@@ -80,12 +81,12 @@ module ReqresRspec
           content_length: request.content_length,
           content_type: request.content_type,
           headers: read_request_headers(request),
-          accept: request.accept,
+          accept: request.accept
         },
         response: {
           code: response.status,
           body: response.body,
-          headers: read_response_headers(response),
+          headers: read_response_headers(response)
         }
       }
     end
@@ -186,6 +187,7 @@ module ReqresRspec
           description << line.gsub(/\A\s*#\s*@description/, '').strip
           comment_lines[(index + 1)..-1].each do |multiline|
             if !multiline.match /\s*#\s*@param/
+              description << "\n"
               description << multiline.gsub(/\A\s*#\s*/, '').strip
             else
               break
@@ -202,38 +204,40 @@ module ReqresRspec
     def get_action_params(controller, action)
       comment_lines = get_action_comments(controller, action)
 
-      text_params = []
+      comments_raw = []
       has_param = false
       comment_lines.each do |line|
         if line.match /\s*#\s*@param/ # @param id required Integer blah blah
           has_param = true
-          text_params << ''
+          comments_raw << ''
         end
         if has_param
-          line = line.gsub(/\A\s*#\s*@param/, '').strip
+          #text_params.last << "\n"
+          line = line.gsub(/\A\s*#\s*@param/, '')
           line = line.gsub(/\A\s*#\s*/, '').strip
-          text_params.last << line
+
+          comments_raw.last << "\n" unless comments_raw.last.blank?
+          comments_raw.last << line
         end
       end
 
-      params = []
-
-      text_params.each do |param|
-        match_data = param.match /(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>required)?\s*(?<type>Integer|Boolean|String|Text|Float|Date|DateTime|File)?\s*(?<description>.*)/
+      comments = []
+      comments_raw.each do |comment|
+        match_data = comment.match /(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>required|optional)?\s*(?<type>Integer|Boolean|String|Text|Float|Date|DateTime|File|Array)?\s*(?<description>.*)/m
 
         if match_data
-          params << {
+          comments << {
             name: match_data[:name],
             required: match_data[:required],
             type: match_data[:type],
-            description: match_data[:description],
+            description: match_data[:description]
           }
         else
-          params << { description: param }
+          comments << { description: comment }
         end
       end
 
-      params
+      comments
     end
   end
 end
