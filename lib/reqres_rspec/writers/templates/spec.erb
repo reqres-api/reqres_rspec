@@ -171,7 +171,13 @@
           </tr>
           <% @record[:params].each do |param| %>
             <tr>
-              <td><%= param[:name] %> <i class="required"><%= param[:required] %></i></td>
+              <td>
+                <%= param[:name] %>
+                <% if param[:required].present? %>
+                  <br/>
+                  <i class="required"><%= param[:required] %></i>
+                <% end %>
+              </td>
               <td><%= param[:type] %></td>
               <td><%= param[:description].gsub("\n", '<br>'.html_safe) %></td>
             </tr>
