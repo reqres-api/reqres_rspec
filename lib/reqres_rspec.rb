@@ -28,6 +28,4 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
       end
     end
   end
-else
-  puts "\nNOTICE: ReqresRspec is disabled. run `REQRES_RSPEC=1 bundle exec rspec --order=defined`\n"
 end

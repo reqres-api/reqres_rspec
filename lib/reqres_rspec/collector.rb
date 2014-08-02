@@ -3,6 +3,12 @@ module ReqresRspec
     # Contains spec values read from rspec example, request and response
     attr_accessor :records
 
+    # param importances
+    PARAM_IMPORTANCES = %w[required optional]
+
+    # param types
+    PARAM_TYPES = %w[Integer Boolean String Text Float Date DateTime File Array]
+
     # response headers contain many unnecessary information,
     # everything from this list will be stripped
     EXCLUDE_RESPONSE_HEADER_PATTERNS = %w[
@@ -212,7 +218,6 @@ module ReqresRspec
           comments_raw << ''
         end
         if has_param
-          #text_params.last << "\n"
           line = line.gsub(/\A\s*#\s*@param/, '')
           line = line.gsub(/\A\s*#\s*/, '').strip
 
@@ -223,7 +228,7 @@ module ReqresRspec
 
       comments = []
       comments_raw.each do |comment|
-        match_data = comment.match /(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>required|optional)?\s*(?<type>Integer|Boolean|String|Text|Float|Date|DateTime|File|Array)?\s*(?<description>.*)/m
+        match_data = comment.match /(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>#{PARAM_IMPORTANCES.join('|')})?\s*(?<type>#{PARAM_TYPES.join('|')})?\s*(?<description>.*)/m
 
         if match_data
           comments << {
