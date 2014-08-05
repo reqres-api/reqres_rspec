@@ -3,11 +3,13 @@ module ReqresRspec
     # Contains spec values read from rspec example, request and response
     attr_accessor :records
 
-    # param importances
+    # Param importances
     PARAM_IMPORTANCES = %w[required optional]
 
-    # param types
-    PARAM_TYPES = %w[Integer Boolean String Text Float Date DateTime File Array]
+    # Param types
+    # NOTE: make sure sub-strings go at the end
+    PARAM_TYPES = ['Boolean', 'String', 'Text', 'Float', 'DateTime', 'Date', 'File',
+                   'Array of Integer', 'Array of String', 'Array', 'Integer']
 
     # response headers contain many unnecessary information,
     # everything from this list will be stripped
@@ -126,7 +128,7 @@ module ReqresRspec
 
     # replace each first occurrence of param's value in the request path
     #
-    # example
+    # Example:
     #   request path = /api/users/123
     #   id = 123
     #   symbolized path => /api/users/:id
