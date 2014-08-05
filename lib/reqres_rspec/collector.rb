@@ -8,8 +8,11 @@ module ReqresRspec
 
     # Param types
     # NOTE: make sure sub-strings go at the end
-    PARAM_TYPES = ['Boolean', 'String', 'Text', 'Float', 'DateTime', 'Date', 'File',
-                   'Array of Integer', 'Array of String', 'Array', 'Integer']
+    PARAM_TYPES = ['Boolean', 'Text', 'Float', 'DateTime', 'Date', 'File',
+                   'Array of Integer', 'Array of String', 'Array', 'Integer', 'String']
+
+    # Exclude replacement in symbolized path
+    EXCLUDE_PATH_SYMBOLS = %w[limit offset format description]
 
     # response headers contain many unnecessary information,
     # everything from this list will be stripped
@@ -141,7 +144,7 @@ module ReqresRspec
         each do |key, value|
         if value.is_a? String
           index = request_path.index(value)
-          if index && index >= 0
+          if index && index >= 0 && !EXCLUDE_PATH_SYMBOLS.include?(key)
             request_path = request_path.sub(value, ":#{key}")
           end
         end
