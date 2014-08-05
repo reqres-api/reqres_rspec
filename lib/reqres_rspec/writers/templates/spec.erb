@@ -232,18 +232,23 @@
 
     <% if @record[:response][:body].present? %>
       <h5>Body</h5>
-      <% lines = begin
-                   JSON.pretty_generate(
-                     JSON.parse(
-                       @record[:response][:body]
+
+      <% if (@record[:response][:headers]['Content-Type'] == 'application/pdf' rescue true) %>
+        <code>PDF document</code>
+      <% else %>
+        <% lines = begin
+                     JSON.pretty_generate(
+                       JSON.parse(
+                         @record[:response][:body]
+                       )
                      )
-                   )
-                 rescue
-                   @record[:response][:body]
-                 end %>
-      <code>
-        <%= CodeRay.scan(lines, :json).div(line_numbers: :table) %>
-      </code>
+                   rescue
+                     @record[:response][:body]
+                   end %>
+        <code>
+          <%= CodeRay.scan(lines, :json).div(line_numbers: :table) %>
+        </code>
+      <% end %>
     <% end %>
   </div>
 </body>
