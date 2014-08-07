@@ -21,6 +21,10 @@ module ReqresRspec
       X-XSS-Protection
       X-Content-Type-Options
       X-UA-Compatible
+      X-Request-Id
+      X-Runtime
+      ETag
+      Cache-Control
     ]
 
     # request headers contain many unnecessary information,
