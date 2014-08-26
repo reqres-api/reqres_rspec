@@ -8,7 +8,7 @@ module ReqresRspec
 
     # Param types
     # NOTE: make sure sub-strings go at the end
-    PARAM_TYPES = ['Boolean', 'Text', 'Float', 'DateTime', 'Date', 'File',
+    PARAM_TYPES = ['Boolean', 'Text', 'Float', 'DateTime', 'Date', 'File', 'UUID',
                    'Array of Integer', 'Array of String', 'Array', 'Integer', 'String']
 
     # Exclude replacement in symbolized path
