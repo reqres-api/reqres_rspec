@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><%= Rails.application.class.to_s.sub('::Application', '') %> API Documentation</title>
+  <title><%= ENV['REQRES_RSPEC_APP'] %> API Documentation</title>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   <style>
@@ -139,12 +139,12 @@
       margin: 0;
       padding: 0 4px;
     }
-    ol li:first-child{
+    ol li:first-child {
       padding-top: 5px;
-	}
-    ol li:last-child{
+    }
+    ol li:last-child {
       padding-bottom: 5px;
-	}
+    }
   </style>
 </head>
 <body>
@@ -155,7 +155,7 @@
     </h3>
 
     <p>
-      <%= @record[:description].gsub("\n", '<br>'.html_safe) %>
+      <%= @record[:description].gsub("\n", ('<br>'.respond_to?(:html_safe) && '<br>'.html_safe) || '<br>') %>
     </p>
 
     <code><%= @record[:request][:method] %> <%= @record[:request_path] %></code>
@@ -179,7 +179,7 @@
                 <% end %>
               </td>
               <td><%= param[:type] %></td>
-              <td><%= param[:description].gsub("\n", '<br>'.html_safe) %></td>
+              <td><%= param[:description].gsub("\n", ('<br>'.respond_to?(:html_safe) && '<br>'.html_safe) || '<br>') %></td>
             </tr>
           <% end %>
         </table>
