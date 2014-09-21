@@ -10,10 +10,25 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     config.after(:each) do
       # TODO: remove boilerplate code
       # TODO: better options
-      meta_data = self.class.example.metadata
-      if meta_data[:type] == :request && !meta_data[:skip_reqres] == true
+
+      if defined?(Rails)
+        ENV['REQRES_RSPEC_ROOT'] = Rails.root.to_s
+
+        meta_data = self.class.example.metadata
+        if meta_data[:type] == :request && meta_data[:skip_reqres] == true
+          begin
+            collector.collect(self, self.request, self.response)
+          rescue NameError
+            raise $!
+          end
+        end
+      elsif defined?(Sinatra)
+        raise 'REQRES_RSPEC_ROOT is not defined' if ENV['REQRES_RSPEC_ROOT'].blank?
+
         begin
-          collector.collect(self, self.request, self.response)
+          collector.collect(self, self.last_request, self.last_response)
+        rescue Rack::Test::Error
+          #
         rescue NameError
           raise $!
         end

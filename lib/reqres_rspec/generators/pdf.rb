@@ -6,8 +6,8 @@ module ReqresRspec
       def generate
         # http://www.princexml.com/download/
         pdf_tool_path = 'prince'
-        html_docs_root = File.join(Rails.root, 'doc')
-        pdf_doc_path = File.join(Rails.root, 'doc', "rspec_doc_#{Time.now.strftime("%d-%h-%Y_%H-%M")}.pdf")
+        html_docs_root = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc')
+        pdf_doc_path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', "rspec_doc_#{Time.now.strftime("%d-%h-%Y_%H-%M")}.pdf")
 
         if `which #{pdf_tool_path}`.size > 0
           files = Dir["#{html_docs_root}/rspec_doc_*.html"]

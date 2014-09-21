@@ -31,6 +31,8 @@ module ReqresRspec
     # everything that match items from this list will be stripped
     EXCLUDE_REQUEST_HEADER_PATTERNS = %w[
       rack.
+      sinatra.commonlogger
+      sinatra.route
       ROUTES_
       action_dispatch
       action_controller.
@@ -96,7 +98,7 @@ module ReqresRspec
           content_length: request.content_length,
           content_type: request.content_type,
           headers: read_request_headers(request),
-          accept: request.accept
+          accept: (request.accept rescue nil)
         },
         response: {
           code: response.status,
@@ -142,8 +144,11 @@ module ReqresRspec
     #
     def get_symbolized_path(request)
       request_path = request.path
+      request_params = request.env['action_dispatch.request.parameters'] ||
+                       request.env['rack.request.form_hash'] ||
+                       request.env['rack.request.query_hash']
 
-      request.env['action_dispatch.request.parameters'].
+      request_params.
         reject { |param| %w[controller action].include? param }.
         each do |key, value|
         if value.is_a? String
@@ -160,7 +165,7 @@ module ReqresRspec
     # returns action comments taken from controller file
     # example TODO
     def get_action_comments(controller, action)
-      lines = File.readlines(File.join(Rails.root, 'app', 'controllers', "#{controller}_controller.rb"))
+      lines = File.readlines(File.join(ENV['REQRES_RSPEC_ROOT'], 'app', 'controllers', "#{controller}_controller.rb"))
 
       action_line = nil
       lines.each_with_index do |line, index|

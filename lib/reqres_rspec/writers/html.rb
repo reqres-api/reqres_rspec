@@ -21,7 +21,7 @@ module ReqresRspec
 
       # recreates /doc dir if it does not exist
       def recreate_doc_dir
-        doc_dir = File.join(Rails.root, 'doc')
+        doc_dir = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc')
         unless Dir.exist?(doc_dir)
           Dir.mkdir(doc_dir)
           puts "#{doc_dir} was recreated"
@@ -31,9 +31,9 @@ module ReqresRspec
       # deletes previous version of HTML docs
       # TODO: more info
       def cleanup
-        FileUtils.rm_rf(Dir.glob("#{Rails.root}/doc/rspec_doc_*.html"), secure: true)
-        FileUtils.rm_rf(Dir.glob("#{Rails.root}/doc/index.html"), secure: true)
-        FileUtils.rm_rf(Dir.glob("#{Rails.root}/doc/panel.html"), secure: true)
+        FileUtils.rm_rf(Dir.glob("#{ENV['REQRES_RSPEC_ROOT']}/doc/rspec_doc_*.html"), secure: true)
+        FileUtils.rm_rf(Dir.glob("#{ENV['REQRES_RSPEC_ROOT']}/doc/index.html"), secure: true)
+        FileUtils.rm_rf(Dir.glob("#{ENV['REQRES_RSPEC_ROOT']}/doc/panel.html"), secure: true)
       end
 
       # generates contents of HTML docs
@@ -42,7 +42,7 @@ module ReqresRspec
         tpl_path = File.join(File.dirname(__FILE__), 'templates', 'header.erb')
         rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-        path = File.join(Rails.root, 'doc', 'rspec_doc_00000.html')
+        path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', 'rspec_doc_00000.html')
         file = File.open(path, 'w')
         file.write(rendered_doc)
         file.close
@@ -60,7 +60,7 @@ module ReqresRspec
 
           rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-          path = File.join(Rails.root, 'doc', "rspec_doc_#{@index.to_s.rjust(5, '0') }.html")
+          path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', "rspec_doc_#{@index.to_s.rjust(5, '0') }.html")
           file = File.open(path, 'w')
           file.write(rendered_doc)
           file.close
@@ -70,7 +70,7 @@ module ReqresRspec
 
       # creates an index file with iframes if does not exists
       def append_index
-        index_file = File.join(Rails.root, 'doc', 'index.html')
+        index_file = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', 'index.html')
         unless File.exists?(index_file)
           tpl_path = File.join(File.dirname(__FILE__), 'templates', 'index.erb')
           rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
@@ -79,7 +79,7 @@ module ReqresRspec
       end
 
       def append_panel
-        index_file = File.join(Rails.root, 'doc', 'panel.html')
+        index_file = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', 'panel.html')
         unless File.exists?(index_file)
           tpl_path = File.join(File.dirname(__FILE__), 'templates', 'panel.erb')
           rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
