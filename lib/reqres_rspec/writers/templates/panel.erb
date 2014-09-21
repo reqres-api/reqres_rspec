@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= (Rails.application.class.to_s.sub('::Application', '') rescue ENV['REQRES_RSPEC_APP']) %> API Documentation</title>
+    <title><%= ENV['REQRES_RSPEC_APP'] %> API Documentation</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
@@ -86,7 +86,7 @@
   </head>
   <body>
     <h1><a href="rspec_doc_00000.html" target="specs">
-      <%= (Rails.application.class.to_s.sub('::Application', '') rescue ENV['REQRES_RSPEC_APP']) %> API
+      <%= ENV['REQRES_RSPEC_APP'] %> API
     </a></h1>
     <% @records.group_by{|h| h[:group]}.each do |group, items| %>
       <h2><%= group %></h2>

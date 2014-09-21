@@ -13,6 +13,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
 
       if defined?(Rails)
         ENV['REQRES_RSPEC_ROOT'] = Rails.root.to_s
+        ENV['REQRES_RSPEC_APP'] = Rails.application.class.to_s.sub('::Application', '')
 
         meta_data = self.class.example.metadata
         if meta_data[:type] == :request && meta_data[:skip_reqres] == true
@@ -24,6 +25,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
         end
       elsif defined?(Sinatra)
         raise 'REQRES_RSPEC_ROOT is not defined' if ENV['REQRES_RSPEC_ROOT'].blank?
+        raise 'REQRES_RSPEC_APP is not defined' if ENV['REQRES_RSPEC_APP'].blank?
 
         begin
           collector.collect(self, self.last_request, self.last_response)
