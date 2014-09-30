@@ -16,7 +16,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
         ENV['REQRES_RSPEC_APP'] = Rails.application.class.to_s.sub('::Application', '')
 
         meta_data = self.class.example.metadata
-        if meta_data[:type] == :request && meta_data[:skip_reqres] == true
+        if meta_data[:type] == :request && !meta_data[:skip_reqres] == true
           begin
             collector.collect(self, self.request, self.response)
           rescue NameError
