@@ -41,7 +41,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
       if collector.records.size > 0
         collector.sort
         ReqresRspec::Writers::Html.new(collector.records).write
-        ReqresRspec::Generators::Pdf.new.generate
+        # ReqresRspec::Generators::Pdf.new.generate
       end
     end
   end
