@@ -85,7 +85,7 @@
     </style>
   </head>
   <body>
-    <h1><a href="rspec_doc_00000.html" target="specs">
+    <h1><a href="rspec_doc_table_of_content.html" target="specs">
       <%= ENV['REQRES_RSPEC_APP'] %> API
     </a></h1>
     <% @records.group_by{|h| h[:group]}.each do |group, items| %>
@@ -95,7 +95,7 @@
         <ul>
           <% records.each do |record| %>
             <li>
-              <a href="rspec_doc_<%= (@records.index(record) + 1).to_s.rjust(5, '0') %>.html" target="specs">
+              <a href="rspec_doc_<%= record[:filename] %>.html" target="specs">
                 <span class="method <%= record[:request][:method].downcase %>"><%= record[:request][:method] %></span>
                 <%= record[:title] %><br />
               </a>

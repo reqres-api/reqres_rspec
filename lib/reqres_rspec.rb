@@ -1,6 +1,7 @@
 require 'reqres_rspec/version'
 require 'reqres_rspec/collector'
 require 'reqres_rspec/writers/html'
+require 'reqres_rspec/writers/json_formatter'
 require 'reqres_rspec/generators/pdf'
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
@@ -40,8 +41,25 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     config.after(:suite) do
       if collector.records.size > 0
         collector.sort
-        ReqresRspec::Writers::Html.new(collector.records).write
-        ReqresRspec::Generators::Pdf.new.generate
+        formatters = %w(html pdf json)
+
+        requested_formats = (ENV['REQRES_RSPEC_FORMATTERS'] || 'html').split(',')
+        requested_formats.sort_by!{|fmt| [formatters.index(fmt), fmt]}
+        requested_formats.each do |fmt|
+          case fmt
+          when 'html'
+            ReqresRspec::Writers::Html.new(collector.records).write
+          when 'pdf'
+            ReqresRspec::Writers::Html.new(collector.records).write unless requested_formats.include?('html')
+            ReqresRspec::Generators::Pdf.new.generate
+          when 'json'
+            ReqresRspec::Writers::JSONFormatter.new(collector.records).write
+          else
+            puts "No formatters defined, define one of #{formatters} in REQRES_RSPEC_FORMATTERS"
+          end
+        end
+
+        #
       end
     end
   end

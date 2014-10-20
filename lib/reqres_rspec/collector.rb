@@ -82,6 +82,7 @@ module ReqresRspec
       end
 
       self.records << {
+        filename: prepare_filename_for(spec.class.metadata),
         group: section, # Top level example group
         title: spec.class.example.full_description,
         description: description,
@@ -106,6 +107,21 @@ module ReqresRspec
           headers: read_response_headers(response)
         }
       }
+    end
+
+    def prepare_filename_for(metadata)
+      description = metadata[:description]
+      example_group = if metadata.key?(:example_group)
+                        metadata[:example_group]
+                      else
+                        metadata[:parent_example_group]
+                      end
+
+      if example_group
+        [prepare_filename_for(example_group), description].join('/')
+      else
+        description
+      end.gsub!(/[\W]+/, '_')
     end
 
     # sorts records alphabetically
