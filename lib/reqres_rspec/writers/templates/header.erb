@@ -64,7 +64,7 @@
     <% @records.each_with_index do |record, index| %>
       <li>
         <%= index+1 %>.
-        <a href="rspec_doc_<%= ('0000' + (index + 1).to_s)[-5, 5] %>.html">
+        <a href="rspec_doc_<%= record[:filename] %>.html">
           <%= record[:title] %>
         </a>
       </li>

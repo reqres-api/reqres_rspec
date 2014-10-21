@@ -42,7 +42,7 @@ module ReqresRspec
         tpl_path = File.join(File.dirname(__FILE__), 'templates', 'header.erb')
         rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-        path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', 'rspec_doc_00000.html')
+        path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', 'rspec_doc_table_of_content.html')
         file = File.open(path, 'w')
         file.write(rendered_doc)
         file.close
@@ -54,13 +54,11 @@ module ReqresRspec
       def generate_specs
         tpl_path = File.join(File.dirname(__FILE__), 'templates', 'spec.erb')
 
-        @records.each_with_index do |record, index|
+        @records.each do |record|
           @record = record
-          @index = index + 1
-
           rendered_doc = ERB.new(File.open(tpl_path).read).result(binding)
 
-          path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', "rspec_doc_#{@index.to_s.rjust(5, '0') }.html")
+          path = File.join(ENV['REQRES_RSPEC_ROOT'], 'doc', "rspec_doc_#{record[:filename]}.html")
           file = File.open(path, 'w')
           file.write(rendered_doc)
           file.close
