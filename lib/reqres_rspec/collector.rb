@@ -121,7 +121,7 @@ module ReqresRspec
         [prepare_filename_for(example_group), description].join('/')
       else
         description
-      end.downcase.gsub!(/[\W]+/, '_').gsub!('__', '_').gsub!(/^_|_$/, '')
+      end.downcase.gsub(/[\W]+/, '_').gsub('__', '_').gsub(/^_|_$/, '')
     end
 
     # sorts records alphabetically
