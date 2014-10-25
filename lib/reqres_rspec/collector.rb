@@ -181,7 +181,7 @@ module ReqresRspec
     # returns action comments taken from controller file
     # example TODO
     def get_action_comments(controller, action)
-      lines = File.readlines(File.join(ENV['REQRES_RSPEC_ROOT'], 'app', 'controllers', "#{controller}_controller.rb"))
+      lines = File.readlines(File.join(ReqresRspec.root, 'app', 'controllers', "#{controller}_controller.rb"))
 
       action_line = nil
       lines.each_with_index do |line, index|

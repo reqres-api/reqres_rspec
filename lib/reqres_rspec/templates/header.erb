@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title><%= ENV['REQRES_RSPEC_APP'] %> API Documentation</title>
+  <title><%= ReqresRspec.configuration.title %></title>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   <style>
@@ -58,7 +58,7 @@
 </head>
 <body>
 <div class="container">
-  <h1><%= ENV['REQRES_RSPEC_APP'] %> API Documentation</h1>
+  <h1><%= ReqresRspec.configuration.title %></h1>
   <p>Generated <%= Time.now.strftime('%d %B %Y at %H:%m:%S')%> with <a href="https://github.com/reqres-api/reqres_rspec">reqres_rspec</a></p>
   <ul>
     <% @records.each_with_index do |record, index| %>
