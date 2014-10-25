@@ -20,8 +20,12 @@ module ReqresRspec
             klass = Object.const_get(fmt)
             raise "Formatter #{fmt} should respond to `process` method" if klass.respond_to?(:process)
             klass.new(records).process
-          rescue NameError
-            raise "Formatter #{fmt} does not exists"
+          rescue NameError => e
+            if e.message =~ /(uninitialized constant|wrong constant name) #{fmt}$/
+              raise "Formatter #{fmt} does not exists"
+            else
+              raise e
+            end
           end
         end
       end

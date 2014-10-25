@@ -83,8 +83,8 @@ module ReqresRspec
 
       self.records << {
         filename: prepare_filename_for(spec.class.metadata),
-        group: section, # Top level example group
-        title: spec.class.example.full_description,
+        group: spec.class.metadata[:reqres_section] || section, # Top level example group
+        title: spec.class.metadata[:reqres_title] || spec.class.example.full_description,
         description: description,
         params: params,
         request_path: get_symbolized_path(request),
