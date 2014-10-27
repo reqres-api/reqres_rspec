@@ -37,6 +37,12 @@ by default `reqres_rspec` is not active (this may be configured!). To activate i
 
 Documentation will be put into your application's `/doc` folder
 
+## Upload to S3
+
+By default ReqRes will use `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_REQRES_BUCKET` environment variables. But you can alter that in configuration, see below.
+
+`REQRES_UPLOAD=1 REQRES_RSPEC=1 bundle exec rspec --order=defined`
+
 ### Sample controller action
 
 ```ruby
@@ -79,6 +85,21 @@ Each param text is started with `@param` and first word will be param name, then
 
  Doc will use full example description, as a title for each separate spec
 
+If you want to group examples in another way, you can do something like:
+
+```ruby
+describe 'Something', reqres_section: 'Foo' do
+  context 'valid params', reqres_title: 'Bakes Pie' do
+    it 'works' do
+      ...
+    end
+  end
+end
+```
+
+In this case all the `reqres_sections` can be used for grouping colleced data into section, and `reqres_title` will become human readable titles:
+[![Cusomized titles](http://i57.tinypic.com/2581lw9.jpg)](http://i57.tinypic.com/2581lw9.jpg)
+
 ### Generates documentation example
 
 [![Generated Doc](http://i44.tinypic.com/kda1pw.png)](http://i44.tinypic.com/kda1pw.png)
@@ -88,7 +109,59 @@ Documentation is written in HTML format, which then converted to PDF. PDF files 
 
 ## Configuration
 
-TODO: Write instruction on gem configuration
+```ruby
+ReqresRspec.configure do |c|
+  c.templates_path = Rails.root.join('spec/support/reqres/templates') # Path to custom templates
+  c.output_path = 'some path' # by default it will use doc/reqres
+  c.formatters = %w(MyCustomFormatter) # List of custom formatters, these can be inherited from ReqresRspec::Formatters::HTML
+  c.title = 'My API Documentation' # Title for your documentation
+  c.amazon_s3 = {
+    credentials: {
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'], # by default it will use AWS_ACCESS_KEY_ID env var
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'], # by default it will use AWS_SECRET_ACCESS_KEY env var
+      region: (ENV['AWS_REGION'] || 'us-east-1'),
+    },
+    bucket: ENV['AWS_REQRES_BUCKET'], # by default it will use AWS_REQRES_BUCKET env for bucket name
+    enabled: false # Enable upload (only with REQRES_UPLOAD env var set)
+  }
+end
+```
+
+## Custom Formatter example
+
+```ruby
+class CustomAPIDoc < ReqresRspec::Formatters::HTML
+  private
+  def write
+    # Copy assets
+    %w(styles images components scripts).each do |folder|
+      FileUtils.cp_r(path(folder), output_path)
+    end
+
+    # Generate general pages
+    @pages = {
+      'index.html'          => 'Introduction',
+      'authentication.html' => 'Authentication',
+      'filtering.html'      => 'Filtering, Sorting and Pagination',
+      'locations.html'      => 'Locations',
+      'files.html'          => 'Files',
+      'external-ids.html'   => 'External IDs',
+    }
+
+    @pages.each do |filename, _|
+      @current_page = filename
+      save filename, render("pages/#{filename}")
+    end
+
+    # Generate API pages
+    @records.each do |record|
+      @record       = record
+      @current_page = @record[:filename]
+      save "#{record[:filename]}.html", render('spec.html.erb')
+    end
+  end
+end
+```
 
 ## Future plans
 

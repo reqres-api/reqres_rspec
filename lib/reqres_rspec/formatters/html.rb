@@ -27,8 +27,11 @@ module ReqresRspec
         File.join(ReqresRspec.configuration.templates_path, filename)
       end
 
-      def render(filename)
-        ERB.new(File.open(path(filename)).read).result(binding)
+      def render(filename, arguments = {})
+        eval <<-RUBY
+          #{ arguments.map {|k, v| "#{k} = #{v}"}.join("\n") }
+          ERB.new(File.open(path(filename)).read).result(binding)
+        RUBY
       end
 
       def save(filename, data)

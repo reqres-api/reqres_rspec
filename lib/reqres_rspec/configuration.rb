@@ -39,6 +39,16 @@ module ReqresRspec
       requested_formats.sort_by!{|fmt| [DEFAULT_FORMATTERS.index(fmt), fmt]}
       @formatters = requested_formats.empty? ? %w(html) : requested_formats
 
+      @amazon_s3 = {
+        credentials: {
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+          region: (ENV['AWS_REGION'] || 'us-east-1'),
+        },
+        bucket: ENV['AWS_REQRES_BUCKET'],
+        enabled: false
+      }
+
       @title = 'API Docs'
     end
 
@@ -47,5 +57,11 @@ module ReqresRspec
     attr_accessor :title
     attr_accessor :formatters
     attr_reader :root
+    attr_reader :amazon_s3
+
+    def amazon_s3=(config={})
+      @amazon_s3.deep_merge!(config)
+    end
+
   end
 end
