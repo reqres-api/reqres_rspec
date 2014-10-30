@@ -83,8 +83,8 @@ module ReqresRspec
 
       self.records << {
         filename: prepare_filename_for(spec.class.metadata),
-        group: section, # Top level example group
-        title: spec.class.example.full_description,
+        group: spec.class.metadata[:reqres_section] || section, # Top level example group
+        title: spec.class.metadata[:reqres_title] || spec.class.example.full_description,
         description: description,
         params: params,
         request_path: get_symbolized_path(request),
@@ -181,7 +181,7 @@ module ReqresRspec
     # returns action comments taken from controller file
     # example TODO
     def get_action_comments(controller, action)
-      lines = File.readlines(File.join(ENV['REQRES_RSPEC_ROOT'], 'app', 'controllers', "#{controller}_controller.rb"))
+      lines = File.readlines(File.join(ReqresRspec.root, 'app', 'controllers', "#{controller}_controller.rb"))
 
       action_line = nil
       lines.each_with_index do |line, index|
