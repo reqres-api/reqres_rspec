@@ -23,7 +23,7 @@ module ReqresRspec
 
       def cleanup
         unless Dir.exist?(output_path)
-          Dir.mkdir(output_path)
+          FileUtils.mkdir_p(output_path)
           logger.info "#{output_path} was recreated"
         end
         FileUtils.rm_rf(Dir.glob("#{output_path}/#{cleanup_pattern}"), secure: true)
