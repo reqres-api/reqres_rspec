@@ -17,9 +17,7 @@ module ReqresRspec
 
       self.constants.each do |name|
         klass = Object.const_get("ReqresRspec::Uploaders::#{name}")
-        if klass.public_instance_methods.include?(:upload)
-          klass.upload
-        end
+        klass.upload if klass.respond_to?(:upload)
       end
     end
 
