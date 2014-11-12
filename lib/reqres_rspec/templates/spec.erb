@@ -205,8 +205,8 @@
     <h5>Body</h5>
     <% if @record[:request][:body].present? %>
       <% lines = begin
-        JSON.pretty_generate(
-          JSON.parse(
+        ::JSON.pretty_generate(
+          ::JSON.parse(
             @record[:request][:body]
           )
         )
@@ -237,8 +237,8 @@
         <code>PDF document</code>
       <% else %>
         <% lines = begin
-                     JSON.pretty_generate(
-                       JSON.parse(
+                     ::JSON.pretty_generate(
+                       ::JSON.parse(
                          @record[:response][:body]
                        )
                      )
