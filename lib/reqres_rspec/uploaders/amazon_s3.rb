@@ -1,4 +1,5 @@
 require 'aws-sdk-core'
+require 'mime/types'
 
 module ReqresRspec
   module Uploaders
@@ -26,22 +27,30 @@ module ReqresRspec
       def process
         prepare_bucket
 
-        for file in Dir["#{path}/**/*"]
+        Dir["#{path}/**/*"].each { |file|
           next if File.directory?(file)
           local_path = file.gsub("#{@path}/", '')
+          content_type = MIME::Types.type_for(local_path).first.content_type
 
           start = Time.now
-          @s3.put_object bucket: @bucket, key: local_path, body: File.open(file, 'rb'), acl: "public-read"
+          opts = {
+            bucket: @bucket,
+            key: local_path,
+            body: File.open(file, 'rb'),
+            acl: 'public-read',
+            content_type: content_type
+          }
+          @s3.put_object opts
           done = Time.now
 
-          puts "[#{local_path}] Uploaded in #{done.to_i - start.to_i}s"
-        end
+          puts "\n[#{local_path}] Uploaded in #{done.to_i - start.to_i}s"
+        }
       end
 
     private
       def prepare_bucket
         @s3.create_bucket(
-          acl: "public-read",
+          acl: 'public-read',
           bucket: @bucket
         )
 
