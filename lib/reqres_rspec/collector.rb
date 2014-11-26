@@ -107,6 +107,15 @@ module ReqresRspec
           headers: read_response_headers(response)
         }
       }
+
+      # cleanup query params
+      begin
+        body_hash = JSON.parse(self.records.last[:request][:body])
+        query_hash = self.records.last[:request][:query_parameters]
+        diff = Hash[*((query_hash.size > body_hash.size) ? query_hash.to_a - body_hash.to_a : body_hash.to_a - query_hash.to_a).flatten]
+        self.records.last[:request][:query_parameters] = diff
+      rescue
+      end
     end
 
     def prepare_filename_for(metadata)
