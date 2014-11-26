@@ -69,8 +69,8 @@ module ReqresRspec
         if request_params['controller'] && request_params['action']
           description = get_action_description(request_params['controller'], request_params['action'])
           params = get_action_params(request_params['controller'], request_params['action'])
-          query_parameters = request_params.reject { |p| %w[controller action].include? p }
-          backend_parameters = request_params.reject { |p| !%w[controller action].include? p }
+          query_parameters = request_params.reject { |p| %w[controller action format].include? p }
+          backend_parameters = request_params.reject { |p| !%w[controller action format].include? p }
         end
       end
 
@@ -185,7 +185,7 @@ module ReqresRspec
 
       action_line = nil
       lines.each_with_index do |line, index|
-        if line.match /\s*def #{action}/ #  def show
+        if line.match(/\s*def #{action}/) #  def show
           action_line = index
           break
         end
@@ -197,7 +197,7 @@ module ReqresRspec
         while action_line > 0 && was_comment
           action_line -= 1
 
-          if lines[action_line].match /\s*#/
+          if lines[action_line].match(/\s*#/)
             comment_lines << lines[action_line].strip
           else
             was_comment = false
@@ -219,10 +219,10 @@ module ReqresRspec
 
       description = []
       comment_lines.each_with_index do |line, index|
-        if line.match /\s*#\s*@description/ # @description blah blah
+        if line.match(/\s*#\s*@description/) # @description blah blah
           description << line.gsub(/\A\s*#\s*@description/, '').strip
           comment_lines[(index + 1)..-1].each do |multiline|
-            if !multiline.match /\s*#\s*@param/
+            if !multiline.match(/\s*#\s*@param/)
               description << "\n"
               description << multiline.gsub(/\A\s*#\s*/, '').strip
             else
@@ -243,7 +243,7 @@ module ReqresRspec
       comments_raw = []
       has_param = false
       comment_lines.each do |line|
-        if line.match /\s*#\s*@param/ # @param id required Integer blah blah
+        if line.match(/\s*#\s*@param/) # @param id required Integer blah blah
           has_param = true
           comments_raw << ''
         end
@@ -258,7 +258,7 @@ module ReqresRspec
 
       comments = []
       comments_raw.each do |comment|
-        match_data = comment.match /(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>#{PARAM_IMPORTANCES.join('|')})?\s*(?<type>#{PARAM_TYPES.join('|')})?\s*(?<description>.*)/m
+        match_data = comment.match(/(?<name>[a-z0-9A-Z_\[\]]+)?\s*(?<required>#{PARAM_IMPORTANCES.join('|')})?\s*(?<type>#{PARAM_TYPES.join('|')})?\s*(?<description>.*)/m)
 
         if match_data
           comments << {
