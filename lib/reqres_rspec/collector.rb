@@ -46,6 +46,7 @@ module ReqresRspec
       RAW_POST_DATA
       REMOTE_ADDR
       REQUEST_METHOD
+      REQUEST_URI
       ROUTES_
       SCRIPT_NAME
       SERVER_NAME
@@ -144,9 +145,13 @@ module ReqresRspec
     # read and cleanup response headers
     # returns Hash
     def read_response_headers(response)
-      headers = response.headers
+      raw_headers = response.headers
+      headers = {}
       EXCLUDE_RESPONSE_HEADER_PATTERNS.each do |pattern|
-        headers = headers.reject { |h| h if h.starts_with? pattern }
+        raw_headers = raw_headers.reject { |h| h if h.starts_with? pattern }
+      end
+      raw_headers.each do |key, val|
+        headers.merge!(cleanup_header(key) => val)
       end
       headers
     end
@@ -168,7 +173,7 @@ module ReqresRspec
       headers = {}
       request.env.keys.each do |key|
         if EXCLUDE_REQUEST_HEADER_PATTERNS.all? { |p| !key.starts_with? p }
-          headers.merge!(key.sub(/^HTTP_/, '') => request.env[key])
+          headers.merge!(cleanup_header(key) => request.env[key])
         end
       end
       headers
@@ -296,6 +301,10 @@ module ReqresRspec
       end
 
       comments
+    end
+
+    def cleanup_header(key)
+      key.sub(/^HTTP_/, '').underscore.split('_').map(&:capitalize).join('-')
     end
   end
 end
