@@ -104,7 +104,8 @@ module ReqresRspec
         response: {
           code: response.status,
           body: response.body,
-          headers: read_response_headers(response)
+          headers: read_response_headers(response),
+          format: format(response)
         }
       }
 
@@ -148,6 +149,17 @@ module ReqresRspec
         headers = headers.reject { |h| h if h.starts_with? pattern }
       end
       headers
+    end
+
+    def format(response)
+      case response.headers["Content-Type"]
+      when %r{text/html}
+        :html
+      when %r{application/json}
+        :json
+      else
+        :json
+      end
     end
 
     # read and cleanup request headers

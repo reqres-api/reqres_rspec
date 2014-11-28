@@ -252,10 +252,9 @@
                    rescue
                      @record[:response][:body]
                    end
-          content_type = @record[:response][:headers]["Content-Type"] =~ /json/ ? :json : :html
         %>
         <code>
-          <%= CodeRay.scan(lines, content_type).div(line_numbers: :table) %>
+          <%= CodeRay.scan(lines, @record[:response][:format]).div(line_numbers: :table) %>
         </code>
       <% end %>
     <% end %>
