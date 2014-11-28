@@ -251,9 +251,10 @@
                      )
                    rescue
                      @record[:response][:body]
-                   end %>
+                   end
+        %>
         <code>
-          <%= CodeRay.scan(lines, :json).div(line_numbers: :table) %>
+          <%= CodeRay.scan(lines, @record[:response][:format]).div(line_numbers: :table) %>
         </code>
       <% end %>
     <% end %>
