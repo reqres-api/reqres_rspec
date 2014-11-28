@@ -155,7 +155,9 @@ module ReqresRspec
     def read_request_headers(request)
       headers = {}
       request.env.keys.each do |key|
-        headers.merge!(key => request.env[key]) if EXCLUDE_REQUEST_HEADER_PATTERNS.all? { |p| !key.starts_with? p }
+        if EXCLUDE_REQUEST_HEADER_PATTERNS.all? { |p| !key.starts_with? p }
+          headers.merge!(key.sub(/^HTTP_/, '') => request.env[key])
+        end
       end
       headers
     end
