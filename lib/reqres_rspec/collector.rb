@@ -17,41 +17,41 @@ module ReqresRspec
     # response headers contain many unnecessary information,
     # everything from this list will be stripped
     EXCLUDE_RESPONSE_HEADER_PATTERNS = %w[
-      X-Frame-Options
-      X-XSS-Protection
+      Cache-Control
+      ETag
       X-Content-Type-Options
-      X-UA-Compatible
+      X-Frame-Options
       X-Request-Id
       X-Runtime
-      ETag
-      Cache-Control
+      X-UA-Compatible
+      X-XSS-Protection
     ]
 
     # request headers contain many unnecessary information,
     # everything that match items from this list will be stripped
     EXCLUDE_REQUEST_HEADER_PATTERNS = %w[
-      rack.
-      sinatra.commonlogger
-      sinatra.route
-      ROUTES_
-      action_dispatch
       action_controller.
-      REQUEST_METHOD
-      SERVER_NAME
-      SERVER_PORT
-      QUERY_STRING
-      SCRIPT_NAME
+      action_dispatch
       CONTENT_LENGTH
-      HTTPS
+      HTTP_COOKIE
       HTTP_HOST
+      HTTP_ORIGIN
       HTTP_USER_AGENT
-      REMOTE_ADDR
-      PATH_INFO
+      HTTPS
       ORIGINAL_FULLPATH
       ORIGINAL_SCRIPT_NAME
-      HTTP_COOKIE
-      HTTP_ORIGIN
+      PATH_INFO
+      QUERY_STRING
+      rack.
       RAW_POST_DATA
+      REMOTE_ADDR
+      REQUEST_METHOD
+      ROUTES_
+      SCRIPT_NAME
+      SERVER_NAME
+      SERVER_PORT
+      sinatra.commonlogger
+      sinatra.route
     ]
 
     def initialize
