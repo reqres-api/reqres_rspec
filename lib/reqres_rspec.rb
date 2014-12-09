@@ -37,6 +37,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
 
     config.after(:suite) do
       if collector.records.size > 0
+        collector.sort
         ReqresRspec::Formatters.process(collector.records)
         ReqresRspec::Uploaders.upload if ENV['REQRES_UPLOAD'] == '1'
       end
