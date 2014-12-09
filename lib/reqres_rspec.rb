@@ -14,12 +14,14 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
 
   RSpec.configure do |config|
-    config.after(:each) do
+    config.after(:each) do |example|
       if defined?(Rails)
         meta_data = self.class.example.metadata
-        if meta_data[:type] == :request && !meta_data[:skip_reqres] == true
+        skip_example = meta_data[:skip_reqres] || example.metadata[:skip_reqres]
+
+        if meta_data[:type] == :request && !skip_example
           begin
-            collector.collect(self, self.request, self.response)
+            collector.collect(self, example, self.request, self.response)
           rescue NameError
             raise $!
           end

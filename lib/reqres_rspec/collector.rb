@@ -60,7 +60,7 @@ module ReqresRspec
     end
 
     # collects spec data for further processing
-    def collect(spec, request, response)
+    def collect(spec, example, request, response)
       # TODO: remove boilerplate code
       return if request.nil? || response.nil? || !defined?(request.env)
 
@@ -85,7 +85,7 @@ module ReqresRspec
       self.records << {
         filename: prepare_filename_for(spec.class.metadata),
         group: spec.class.metadata[:reqres_section] || section, # Top level example group
-        title: spec.class.metadata[:reqres_title] || spec.class.example.full_description,
+        title: spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description,
         description: description,
         params: params,
         request_path: get_symbolized_path(request),
