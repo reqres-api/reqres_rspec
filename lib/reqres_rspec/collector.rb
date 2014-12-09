@@ -137,7 +137,10 @@ module ReqresRspec
 
     # sorts records alphabetically
     def sort
-      self.records.sort!{ |x,y| x[:request_path] <=> y[:request_path] }
+      self.records.sort! do |x,y|
+        comp = x[:request_path] <=> y[:request_path]
+        comp.zero? ? (x[:title] <=> y[:title]) : comp
+      end
     end
 
   private
