@@ -135,11 +135,6 @@ module ReqresRspec
       end.downcase.gsub(/[\W]+/, '_').gsub('__', '_').gsub(/^_|_$/, '')
     end
 
-    # sorts records alphabetically
-    def sort
-      self.records.sort!{ |x,y| x[:request_path] <=> y[:request_path] }
-    end
-
   private
 
     # read and cleanup response headers
