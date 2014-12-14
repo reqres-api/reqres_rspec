@@ -158,7 +158,7 @@
       <%= @record[:description].gsub("\n", ('<br>'.respond_to?(:html_safe) && '<br>'.html_safe) || '<br>') %>
     </p>
 
-    <code><%= @record[:request][:method] %> <%= @record[:request_path] %></code>
+    <code><%= @record[:request][:method] %> <%= @record[:request][:symbolized_path] %></code>
 
     <% if @record[:params].size > 0 %>
       <h5>Parameters</h5>

@@ -88,11 +88,11 @@ module ReqresRspec
         title: spec.class.metadata[:reqres_title] || spec.class.example.full_description,
         description: description,
         params: params,
-        request_path: get_symbolized_path(request),
         request: {
           host: request.host,
           url: request.url,
           path: request.path,
+          symbolized_path: get_symbolized_path(request),
           method: request.request_method,
           query_parameters: query_parameters,
           backend_parameters: backend_parameters,
@@ -137,7 +137,7 @@ module ReqresRspec
 
     # sorts records alphabetically
     def sort
-      self.records.sort!{ |x,y| x[:request_path] <=> y[:request_path] }
+      self.records.sort!{ |x,y| x[:request][:symbolized_path] <=> y[:request][:symbolized_path] }
     end
 
   private
