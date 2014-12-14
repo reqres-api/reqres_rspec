@@ -1,4 +1,5 @@
 # ReqresRspec
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/reqres-api/reqres_rspec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Gem generates API documentation from your integration tests written with `rspec`.
 
