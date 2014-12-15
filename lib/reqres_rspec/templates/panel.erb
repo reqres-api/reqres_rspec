@@ -90,7 +90,7 @@
     </a></h1>
     <% @records.group_by{|h| h[:group]}.each do |group, items| %>
       <h2><%= group %></h2>
-      <% items.group_by{|h| h[:request_path]}.each do |path, records| %>
+      <% items.group_by{|h| h[:request][:symbolized_path]}.each do |path, records| %>
         <h3><%= path %></h3>
         <ul>
           <% records.each do |record| %>
