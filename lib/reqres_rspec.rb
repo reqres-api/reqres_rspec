@@ -17,9 +17,8 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
     config.after(:each) do |example|
       if defined?(Rails)
         meta_data = self.class.example.metadata
-        skip_example = meta_data[:skip_reqres] || example.metadata[:skip_reqres]
 
-        if meta_data[:type] == :request && !skip_example
+        if meta_data[:type] == :request && process_example?(meta_data, example)
           begin
             collector.collect(self, example, self.request, self.response)
           rescue NameError
@@ -44,5 +43,9 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
         ReqresRspec::Uploaders.upload if ENV['REQRES_UPLOAD'] == '1'
       end
     end
+  end
+
+  def process_example?(meta_data, example)
+    meta_data[:skip_reqres] || example.metadata[:skip_reqres]
   end
 end

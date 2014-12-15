@@ -85,7 +85,7 @@ module ReqresRspec
       self.records << {
         filename: prepare_filename_for(spec.class.metadata),
         group: spec.class.metadata[:reqres_section] || section, # Top level example group
-        title: spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description,
+        title: example_title(spec, example),
         description: description,
         params: params,
         request: {
@@ -140,7 +140,11 @@ module ReqresRspec
       self.records.sort!{ |x,y| x[:request][:symbolized_path] <=> y[:request][:symbolized_path] }
     end
 
-  private
+    private
+
+    def example_title(spec, example)
+      spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description
+    end
 
     # read and cleanup response headers
     # returns Hash
