@@ -69,6 +69,10 @@ Each param text is started with `@param` and first word will be param name, then
 ### Sample rspec test
 
 ```ruby
+  it 'validates params', :skip_reqres do
+    ...
+  end
+
   context 'With valid params' do
     it 'bakes pie' do
       ...
@@ -82,7 +86,7 @@ Each param text is started with `@param` and first word will be param name, then
   end
 ```
 
- By default all examples will be added to docs. A context of examples (`context` and `describe` blocks)may be excluded from docs with option `:skip_reqres`
+ By default all examples will be added to docs. A context of examples (`context` and `describe` blocks) or any particular examples may be excluded from docs with option `:skip_reqres`
 
  Doc will use full example description, as a title for each separate spec
 
@@ -92,6 +96,10 @@ If you want to group examples in another way, you can do something like:
 describe 'Something', reqres_section: 'Foo' do
   context 'valid params', reqres_title: 'Bakes Pie' do
     it 'works' do
+      ...
+    end
+
+    it 'tires baker', reqres_title: 'Tires baker' do
       ...
     end
   end
