@@ -60,7 +60,7 @@ module ReqresRspec
     end
 
     # collects spec data for further processing
-    def collect(spec, request, response)
+    def collect(spec, example, request, response)
       # TODO: remove boilerplate code
       return if request.nil? || response.nil? || !defined?(request.env)
 
@@ -85,7 +85,7 @@ module ReqresRspec
       self.records << {
         filename: prepare_filename_for(spec.class.metadata),
         group: spec.class.metadata[:reqres_section] || section, # Top level example group
-        title: spec.class.metadata[:reqres_title] || spec.class.example.full_description,
+        title: example_title(spec, example),
         description: description,
         params: params,
         request: {
@@ -143,7 +143,11 @@ module ReqresRspec
       end
     end
 
-  private
+    private
+
+    def example_title(spec, example)
+      spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description
+    end
 
     # read and cleanup response headers
     # returns Hash
