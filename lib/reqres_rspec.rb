@@ -46,6 +46,6 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   end
 
   def process_example?(meta_data, example)
-    meta_data[:skip_reqres] || example.metadata[:skip_reqres]
+    !(meta_data[:skip_reqres] || example.metadata[:skip_reqres])
   end
 end
