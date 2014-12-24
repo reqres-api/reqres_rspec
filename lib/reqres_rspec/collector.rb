@@ -203,7 +203,7 @@ module ReqresRspec
       request_params
         .except(*EXCLUDE_PARAMS)
         .select { |_, value| value.is_a?(String) }
-        .each { |key, value| request_path.sub!(value, ":#{key}") }
+        .each { |key, value| request_path.sub!("/#{value}", "/:#{key}") }
 
       request_path
     end
