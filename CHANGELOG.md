@@ -1,3 +1,9 @@
+version 0.1.8
+
+cleanup code
+fix regression with skipping spec examples
+improve function to create symbolized path
+
 version 0.1.7
 
 symbolized path moved to request key in record
