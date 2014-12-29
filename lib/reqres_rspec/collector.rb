@@ -12,7 +12,7 @@ module ReqresRspec
                    'Array of Integer', 'Array of String', 'Array', 'Integer', 'String']
 
     # Exclude replacement in symbolized path
-    EXCLUDE_PATH_SYMBOLS = %w[limit offset format description]
+    EXCLUDE_PARAMS = %w[limit offset format description controller action]
 
     # response headers contain many unnecessary information,
     # everything from this list will be stripped
@@ -195,20 +195,15 @@ module ReqresRspec
     #
     def get_symbolized_path(request)
       request_path = request.path
-      request_params = request.env['action_dispatch.request.parameters'] ||
-                       request.env['rack.request.form_hash'] ||
-                       request.env['rack.request.query_hash']
+      request_params =
+        request.env['action_dispatch.request.parameters'] ||
+        request.env['rack.request.form_hash'] ||
+        request.env['rack.request.query_hash']
 
-      request_params.
-        reject { |param| %w[controller action].include? param }.
-        each do |key, value|
-        if value.is_a? String
-          index = request_path.index(value)
-          if index && index >= 0 && !EXCLUDE_PATH_SYMBOLS.include?(key)
-            request_path = request_path.sub(value, ":#{key}")
-          end
-        end
-      end
+      request_params
+        .except(*EXCLUDE_PARAMS)
+        .select { |_, value| value.is_a?(String) }
+        .each { |key, value| request_path.sub!("/#{value}", "/:#{key}") }
 
       request_path
     end
