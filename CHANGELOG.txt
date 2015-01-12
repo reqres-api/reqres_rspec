@@ -1,3 +1,7 @@
+version 0.1.9
+
+fix regression with sinatra rspec
+
 version 0.1.8
 
 cleanup code
@@ -7,7 +11,7 @@ improve function to create symbolized path
 version 0.1.7
 
 symbolized path moved to request key in record
- 
+
 versions 0.0.0-0.1.6
 
 todo
