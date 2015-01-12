@@ -15,19 +15,14 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
 
   RSpec.configure do |config|
     config.after(:each) do |example|
-      if defined?(Rails)
-        meta_data = self.class.example.metadata
-
-        if meta_data[:type] == :request && process_example?(meta_data, example)
-          begin
-            collector.collect(self, example, self.request, self.response)
-          rescue NameError
-            raise $!
-          end
-        end
-      elsif defined?(Sinatra)
+      meta_data = self.class.example.metadata
+      if meta_data[:type] == :request && process_example?(meta_data, example)
         begin
-          collector.collect(self, self.last_request, self.last_response)
+          if defined?(Rails)
+            collector.collect(self, example, self.request, self.response)
+          elsif defined?(Sinatra)
+            collector.collect(self, example, self.last_request, self.last_response)
+          end
         rescue Rack::Test::Error
           #
         rescue NameError
