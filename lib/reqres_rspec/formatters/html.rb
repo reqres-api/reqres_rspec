@@ -32,6 +32,8 @@ module ReqresRspec
           #{ arguments.map {|k, v| "#{k} = #{v}"}.join("\n") }
           ERB.new(File.open(path(filename)).read).result(binding)
         RUBY
+      rescue Exception => e
+        logger.error "Reqres::Formatters::HTML.render exception #{e.message}"
       end
 
       def save(filename, data)

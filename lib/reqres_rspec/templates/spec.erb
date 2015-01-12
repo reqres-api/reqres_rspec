@@ -196,7 +196,7 @@
     <code><%= @record[:request][:method] %> <%= @record[:request][:path] %></code>
 
     <h5>Query parameters</h5>
-    <% if @record[:request][:query_parameters].empty? %>
+    <% if @record[:request][:query_parameters].empty? || @record[:request][:query_parameters] == 'not available' %>
       <code>empty</code>
     <% else %>
       <% lines = ::JSON.pretty_generate(@record[:request][:query_parameters]) %>
@@ -210,15 +210,16 @@
 
     <h5>Body</h5>
     <% if @record[:request][:body].present? %>
-      <% lines = begin
-        ::JSON.pretty_generate(
-          ::JSON.parse(
-            @record[:request][:body]
-          )
-        )
-      rescue
-        @record[:request][:body]
-      end %>
+      <% lines =
+           begin
+             ::JSON.pretty_generate(
+               ::JSON.parse(
+                 @record[:request][:body]
+               )
+             )
+           rescue
+             @record[:request][:body]
+           end %>
       <code>
         <%= CodeRay.scan(lines, :json).div(line_numbers: :table) %>
       </code>
@@ -242,15 +243,16 @@
       <% if (@record[:response][:headers]['Content-Type'] == 'application/pdf' rescue true) %>
         <code>PDF document</code>
       <% else %>
-        <% lines = begin
-                     ::JSON.pretty_generate(
-                       ::JSON.parse(
-                         @record[:response][:body]
-                       )
-                     )
-                   rescue
-                     @record[:response][:body]
-                   end
+        <% lines =
+             begin
+               ::JSON.pretty_generate(
+                 ::JSON.parse(
+                   @record[:response][:body]
+                 )
+               )
+             rescue
+               @record[:response][:body]
+             end
         %>
         <code>
           <%= CodeRay.scan(lines, @record[:response][:format]).div(line_numbers: :table) %>
