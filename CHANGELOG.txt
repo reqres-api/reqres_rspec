@@ -1,3 +1,7 @@
+version 0.1.11
+
+fix exception in collecting spec data for Sinatra for examples that are not requests
+
 version 0.1.10
 
 fix rendering of html spec in case when query params are empty
