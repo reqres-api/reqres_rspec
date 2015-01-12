@@ -18,10 +18,11 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
       if defined?(Rails) && process_example?(self.class.example.metadata, example)
         self_request, self_response = self.request, self.response
       elsif defined?(Sinatra)
-        self_request, self_response = self.last_request, self.last_response
+        self_request = self.last_request rescue false
+        self_response = self.last_response rescue false
       end
 
-      if defined?(self_request) && defined?(self_response)
+      if defined?(self_request) && self_request && defined?(self_response) && self_response
         begin
           collector.collect(self, example, self_request, self_response)
         rescue Rack::Test::Error
