@@ -1,3 +1,7 @@
+version 0.1.12
+
+fix table of contents link in template
+
 version 0.1.11
 
 fix exception in collecting spec data for Sinatra for examples that are not requests
