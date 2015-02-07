@@ -1,3 +1,7 @@
+version 0.1.13
+
+exclude some custom request headers like X-Api-*
+
 version 0.1.12
 
 fix table of contents link in template
