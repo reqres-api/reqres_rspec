@@ -53,9 +53,7 @@ module ReqresRspec
       SERVER_PORT
       sinatra.commonlogger
       sinatra.route
-      X-Api-Version
-      X-Api-Client
-      X-Api-Device
+      HTTP_X_API
     ]
 
     def initialize
@@ -167,7 +165,7 @@ module ReqresRspec
     end
 
     def format(response)
-      case response.headers["Content-Type"]
+      case response.headers['Content-Type']
       when %r{text/html}
         :html
       when %r{application/json}
