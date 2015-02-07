@@ -53,6 +53,9 @@ module ReqresRspec
       SERVER_PORT
       sinatra.commonlogger
       sinatra.route
+      X-Api-Version
+      X-Api-Client
+      X-Api-Device
     ]
 
     def initialize
