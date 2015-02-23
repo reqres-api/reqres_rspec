@@ -1,3 +1,7 @@
+version 0.1.15
+
+add ‘conditional’ importance of param
+
 version 0.1.14
 
 exclude some other custom request headers like X-Api-*
