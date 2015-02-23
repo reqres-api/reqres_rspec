@@ -4,7 +4,7 @@ module ReqresRspec
     attr_accessor :records
 
     # Param importances
-    PARAM_IMPORTANCES = %w[required optional]
+    PARAM_IMPORTANCES = %w[required optional conditional]
 
     # Param types
     # NOTE: make sure sub-strings go at the end
