@@ -1,3 +1,7 @@
+version 0.1.16
+
+add ‘deprecated’ importance of param
+
 version 0.1.15
 
 add ‘conditional’ importance of param
