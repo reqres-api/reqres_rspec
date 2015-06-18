@@ -54,6 +54,8 @@ module ReqresRspec
       sinatra.commonlogger
       sinatra.route
       HTTP_X_API
+      Warden
+      Devise.mapping
     ]
 
     def initialize
