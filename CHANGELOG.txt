@@ -1,3 +1,7 @@
+version 0.1.18
+
+skip warden and devise-related request headers
+
 version 0.1.17
 
 fix loading of rspec "request" data for rspec 3.3.0+
