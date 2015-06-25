@@ -25,6 +25,8 @@ module ReqresRspec
       X-Runtime
       X-UA-Compatible
       X-XSS-Protection
+      Vary
+      Last-Modified
     ]
 
     # request headers contain many unnecessary information,
@@ -94,7 +96,7 @@ module ReqresRspec
         request: {
           host: request.host,
           url: request.url,
-          path: request.path,
+          path: request.path.to_s.gsub('%2F', '/'),
           symbolized_path: get_symbolized_path(request),
           method: request.request_method,
           query_parameters: query_parameters,
@@ -149,7 +151,8 @@ module ReqresRspec
     private
 
     def example_title(spec, example)
-      spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description
+      t = spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description
+      t.strip
     end
 
     # read and cleanup response headers
@@ -197,16 +200,18 @@ module ReqresRspec
     #   symbolized path => /api/users/:id
     #
     def get_symbolized_path(request)
-      request_path = request.path
+      request_path = request.env['REQUEST_URI'] || request.path
       request_params =
         request.env['action_dispatch.request.parameters'] ||
         request.env['rack.request.form_hash'] ||
         request.env['rack.request.query_hash']
 
-      request_params
-        .except(*EXCLUDE_PARAMS)
-        .select { |_, value| value.is_a?(String) }
-        .each { |key, value| request_path.sub!("/#{value}", "/:#{key}") }
+      if request_params
+        request_params
+          .except(*EXCLUDE_PARAMS)
+          .select { |_, value| value.is_a?(String) }
+          .each { |key, value| request_path.sub!("/#{value}", "/:#{key}") if value.to_s != '' }
+      end
 
       request_path
     end
