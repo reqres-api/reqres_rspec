@@ -17,7 +17,9 @@ Just add this gem to `Gemfile` of your API Application
 
 And then execute:
 
-    $ bundle
+    $ bundle install
+    
+If necessary, add `require "reqres_rspec"` to your `spec/spec_helper.rb` file
 
 ### 2) PDF generator
 
