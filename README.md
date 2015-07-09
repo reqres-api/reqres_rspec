@@ -44,11 +44,24 @@ Documentation will be put into your application's `/doc` folder
 
 By default ReqRes will use `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_REQRES_BUCKET` environment variables. But you can alter that in configuration, see below.
 
-`REQRES_UPLOAD=1 REQRES_RSPEC=1 bundle exec rspec --order=defined`
+Update .env fields with your data:
+```
+AWS_ACCESS_KEY_ID='--your access key id--'
+AWS_SECRET_ACCESS_KEY='--your secret access key--'
+AWS_REQRES_BUCKET='--your bucket name--'
+```
+
+Then run
+
+`REQRES_UPLOAD=1 REQRES_RSPEC=AmazonS3 bundle exec rspec --order=defined`
+
+Also you can run
+
+`REQRES_UPLOAD=1 REQRES_RSPEC=AmazonS3 AWS_ACCESS_KEY_ID='--your access key id--' AWS_SECRET_ACCESS_KEY='--your secret access key--' AWS_REQRES_BUCKET='--your bucket name--'  bundle exec rspec --order=defined`
 
 ## Upload to Goorle Drive
 
-First, follow “Create a client ID and client secret” in [this page](https://developers.google.com/drive/web/auth/web-server) to get a client ID and client secret for OAut. Update `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in your .env file.
+First, follow “Create a client ID and client secret” in [this page](https://developers.google.com/drive/web/auth/web-server) to get OAuth credentials. Update `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in your .env file.
 
 `REQRES_RSPEC=1 REQRES_UPLOAD=GoogleDrive bundle exec rspec --order=defined`
 Follow instractions in console
