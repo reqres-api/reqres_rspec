@@ -26,9 +26,9 @@ If necessary, add `require "reqres_rspec"` to your `spec/spec_helper.rb` file
 Install `prince` http://www.princexml.com/download/ . For MacOS installation commands are
 
 ```
-wget http://www.princexml.com/download/prince-9.0r2-macosx.tar.gz
-tar -xvf prince-9.0r2-macosx.tar.gz
-cd prince-9.0r2-macosx
+wget http://www.princexml.com/download/prince-10r3-macosx.tar.gz
+tar -xvf prince-10r3-macosx.tar.gz
+cd prince-10r3-macosx
 ./install.sh
 ```
 
@@ -45,6 +45,13 @@ Documentation will be put into your application's `/doc` folder
 By default ReqRes will use `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_REQRES_BUCKET` environment variables. But you can alter that in configuration, see below.
 
 `REQRES_UPLOAD=1 REQRES_RSPEC=1 bundle exec rspec --order=defined`
+
+## Upload to Goorle Drive
+
+First, follow “Create a client ID and client secret” in [this page](https://developers.google.com/drive/web/auth/web-server) to get a client ID and client secret for OAut. Update `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in your .env file.
+
+`REQRES_RSPEC=1 REQRES_UPLOAD=GoogleDrive bundle exec rspec --order=defined`
+Follow instractions in console
 
 ### Sample controller action
 
