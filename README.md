@@ -40,31 +40,35 @@ by default `reqres_rspec` is not active (this may be configured!). To activate i
 
 Documentation will be put into your application's `/doc` folder
 
-## Upload to S3
+## Upload to Amazon S3
 
-By default ReqRes will use `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_REQRES_BUCKET` environment variables. But you can alter that in configuration, see below.
+Set up following environment variables
 
-Update .env fields with your data:
 ```
-AWS_ACCESS_KEY_ID='--your access key id--'
-AWS_SECRET_ACCESS_KEY='--your secret access key--'
-AWS_REQRES_BUCKET='--your bucket name--'
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REQRES_BUCKET
 ```
 
 Then run
 
 `REQRES_UPLOAD=1 REQRES_RSPEC=AmazonS3 bundle exec rspec --order=defined`
 
-Also you can run
 
-`REQRES_UPLOAD=1 REQRES_RSPEC=AmazonS3 AWS_ACCESS_KEY_ID='--your access key id--' AWS_SECRET_ACCESS_KEY='--your secret access key--' AWS_REQRES_BUCKET='--your bucket name--'  bundle exec rspec --order=defined`
+## Upload to Google Drive
 
-## Upload to Goorle Drive
+Follow "Create a client ID and client secret" in [this page](https://developers.google.com/drive/web/auth/web-server) to get OAuth credentials.
 
-First, follow “Create a client ID and client secret” in [this page](https://developers.google.com/drive/web/auth/web-server) to get OAuth credentials. Update `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in your .env file.
+Set environment variables
+
+```
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+```
 
 `REQRES_RSPEC=1 REQRES_UPLOAD=GoogleDrive bundle exec rspec --order=defined`
-Follow instractions in console
+
+Follow instructions in console.
 
 ### Sample controller action
 
@@ -128,8 +132,8 @@ describe 'Something', reqres_section: 'Foo' do
 end
 ```
 
-In this case all the `reqres_sections` can be used for grouping colleced data into section, and `reqres_title` will become human readable titles:
-[![Cusomized titles](http://i57.tinypic.com/2581lw9.jpg)](http://i57.tinypic.com/2581lw9.jpg)
+In this case all the `reqres_sections` can be used for grouping collected data into section, and `reqres_title` will become human readable titles:
+[![Customized titles](http://i57.tinypic.com/2581lw9.jpg)](http://i57.tinypic.com/2581lw9.jpg)
 
 ### Generates documentation example
 
