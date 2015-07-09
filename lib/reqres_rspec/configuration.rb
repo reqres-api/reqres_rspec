@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module ReqresRspec
   extend self
 
@@ -34,7 +36,7 @@ module ReqresRspec
 
       @templates_path = File.expand_path('../templates', __FILE__)
       @output_path = File.join(@root, '/doc/reqres')
-      Dir.mkdir(@output_path) unless Dir.exist?(@output_path)
+      FileUtils.mkdir_p @output_path
 
       requested_formats = (ENV['REQRES_RSPEC_FORMATTERS'].to_s).split(',')
       requested_formats.sort_by!{|fmt| [DEFAULT_FORMATTERS.index(fmt), fmt]}
