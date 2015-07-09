@@ -2,7 +2,8 @@ require 'google/api_client'
 require 'google_drive'
 
 module ReqresRspec
-  module Uploaders
+  module Uploader
+    # You can find more detailed information here https://github.com/gimite/google-drive-ruby
     class GoogleDrive
       def initialize
         @path     = ReqresRspec.configuration.output_path
