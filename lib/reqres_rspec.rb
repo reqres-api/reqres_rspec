@@ -9,6 +9,7 @@ require 'reqres_rspec/formatters/json'
 require 'reqres_rspec/formatters/pdf'
 require 'reqres_rspec/uploaders'
 require 'reqres_rspec/uploaders/amazon_s3'
+require 'reqres_rspec/uploaders/google_drive'
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
@@ -40,7 +41,7 @@ if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
       if collector.records.size > 0
         collector.sort
         ReqresRspec::Formatters.process(collector.records)
-        ReqresRspec::Uploaders.upload if ENV['REQRES_UPLOAD'] == '1'
+        ReqresRspec::Uploaders.upload if ENV['REQRES_UPLOAD']
       end
     end
   end

@@ -26,9 +26,9 @@ If necessary, add `require "reqres_rspec"` to your `spec/spec_helper.rb` file
 Install `prince` http://www.princexml.com/download/ . For MacOS installation commands are
 
 ```
-wget http://www.princexml.com/download/prince-9.0r2-macosx.tar.gz
-tar -xvf prince-9.0r2-macosx.tar.gz
-cd prince-9.0r2-macosx
+wget http://www.princexml.com/download/prince-10r3-macosx.tar.gz
+tar -xvf prince-10r3-macosx.tar.gz
+cd prince-10r3-macosx
 ./install.sh
 ```
 
@@ -40,11 +40,35 @@ by default `reqres_rspec` is not active (this may be configured!). To activate i
 
 Documentation will be put into your application's `/doc` folder
 
-## Upload to S3
+## Upload to Amazon S3
 
-By default ReqRes will use `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_REQRES_BUCKET` environment variables. But you can alter that in configuration, see below.
+Set up following environment variables
 
-`REQRES_UPLOAD=1 REQRES_RSPEC=1 bundle exec rspec --order=defined`
+```
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REQRES_BUCKET
+```
+
+Then run
+
+`REQRES_RSPEC=1 REQRES_UPLOAD=AmazonS3 bundle exec rspec --order=defined`
+
+
+## Upload to Google Drive
+
+Follow "Create a client ID and client secret" in [this page](https://developers.google.com/drive/web/auth/web-server) to get OAuth credentials.
+
+Set environment variables
+
+```
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+```
+
+`REQRES_RSPEC=1 REQRES_UPLOAD=GoogleDrive bundle exec rspec --order=defined`
+
+Follow instructions in console.
 
 ### Sample controller action
 
@@ -108,8 +132,8 @@ describe 'Something', reqres_section: 'Foo' do
 end
 ```
 
-In this case all the `reqres_sections` can be used for grouping colleced data into section, and `reqres_title` will become human readable titles:
-[![Cusomized titles](http://i57.tinypic.com/2581lw9.jpg)](http://i57.tinypic.com/2581lw9.jpg)
+In this case all the `reqres_sections` can be used for grouping collected data into section, and `reqres_title` will become human readable titles:
+[![Customized titles](http://i57.tinypic.com/2581lw9.jpg)](http://i57.tinypic.com/2581lw9.jpg)
 
 ### Generates documentation example
 
