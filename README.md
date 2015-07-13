@@ -52,7 +52,7 @@ AWS_REQRES_BUCKET
 
 Then run
 
-`REQRES_UPLOAD=1 REQRES_RSPEC=AmazonS3 bundle exec rspec --order=defined`
+`REQRES_RSPEC=1 REQRES_UPLOAD=AmazonS3 bundle exec rspec --order=defined`
 
 
 ## Upload to Google Drive
