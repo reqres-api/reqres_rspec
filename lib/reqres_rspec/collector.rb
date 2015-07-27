@@ -9,7 +9,8 @@ module ReqresRspec
     # Param types
     # NOTE: make sure sub-strings go at the end
     PARAM_TYPES = ['Boolean', 'Text', 'Float', 'DateTime', 'Date', 'File', 'UUID', 'Hash',
-                   'Array of Integer', 'Array of String', 'Array', 'Integer', 'String']
+                   'Array of Integer', 'Array of String', 'Array', 'Integer', 'String',
+                   'Email']
 
     # Exclude replacement in symbolized path
     EXCLUDE_PARAMS = %w[limit offset format description controller action]
