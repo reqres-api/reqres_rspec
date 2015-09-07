@@ -22,8 +22,8 @@
       padding: 0;
       width: 100%;
     }
-    h1, h2, ul {
-      margin: 0 0 10px;
+    h1, h2, ol {
+      margin: 0 20px 10px;
       padding: 0;
     }
     h1 {
@@ -36,40 +36,42 @@
       color: #1d96d2;
       text-decoration: none;
     }
-    ul {
-      padding-left: 0;
-      list-style: none;
+    ol {
+      counter-reset: item;
     }
-    li{
-      margin-bottom: 4px;
+    ol > li {
+      counter-increment: item;
+    }
+    ol ol > li {
+      display: block;
+    }
+    ol ol > li:before {
+      content: counters(item, ".") ". ";
+      margin-left: -20px;
     }
 
-    ol{
-      margin: 0 0 10px 0;
-      padding: 0 10px 0 50px;
-    }
-    ol li{
-      white-space: pre;
-      border-left: 1px solid #ccc;
-      margin: 0;
-      padding: 0 4px;
-    }
   </style>
 </head>
 <body>
 <div class="container">
   <h1><%= ReqresRspec.configuration.title %></h1>
   <p>Generated <%= Time.now.strftime('%d %B %Y at %H:%m:%S')%> with <a href="https://github.com/reqres-api/reqres_rspec">reqres_rspec</a></p>
-  <ul>
-    <% @records.each_with_index do |record, index| %>
+  <ol>
+    <% @records.group_by { |x| x[:group] }.sort.each do |group, records| %>
       <li>
-        <%= index+1 %>.
-        <a href="rspec_doc_<%= record[:filename] %>.html">
-          <%= record[:title] %>
-        </a>
+        <h3><%= group %></h3>
+        <ol>
+          <% records.each do |record| %>
+            <li>
+              <a href="rspec_doc_<%= record[:filename] %>.html">
+                <%= record[:title] %>
+              </a>
+            </li>
+          <% end %>
+        </ol>
       </li>
     <% end %>
-  </ul>
+  </ol>
 </div>
 </body>
 </html>
