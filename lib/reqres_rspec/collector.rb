@@ -152,8 +152,15 @@ module ReqresRspec
     private
 
     def example_title(spec, example)
-      t = spec.class.metadata[:reqres_title] || example.metadata[:reqres_title] || spec.class.example.full_description
+      t = prepare_description(spec.class.metadata, :reqres_title) ||
+          prepare_description(example.metadata, :reqres_title) ||
+          spec.class.example.full_description
       t.strip
+    end
+
+    def prepare_description(payload, key)
+      payload[key] &&
+        ->(x) { (x.is_a?(TrueClass) || x == '') ? payload[:description] : x }.call(payload[key])
     end
 
     # read and cleanup response headers
