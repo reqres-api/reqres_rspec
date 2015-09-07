@@ -1,3 +1,7 @@
+version 0.2.3
+
+If reqres_title is empty, example's text is used as a title for documentation page
+
 version 0.2.2
 
 Render reqres_section values in table of contents
