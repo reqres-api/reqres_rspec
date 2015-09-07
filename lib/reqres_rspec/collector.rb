@@ -152,8 +152,7 @@ module ReqresRspec
     private
 
     def example_title(spec, example)
-      t = prepare_description(spec.class.metadata, :reqres_title) ||
-          prepare_description(example.metadata, :reqres_title) ||
+      t = prepare_description(example.metadata, :reqres_title) ||
           spec.class.example.full_description
       t.strip
     end
