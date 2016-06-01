@@ -54,22 +54,6 @@ Then run
 
 `REQRES_RSPEC=1 REQRES_UPLOAD=AmazonS3 bundle exec rspec --order=defined`
 
-
-## Upload to Google Drive
-
-Follow "Create a client ID and client secret" in [this page](https://developers.google.com/drive/web/auth/web-server) to get OAuth credentials.
-
-Set environment variables
-
-```
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-```
-
-`REQRES_RSPEC=1 REQRES_UPLOAD=GoogleDrive bundle exec rspec --order=defined`
-
-Follow instructions in console.
-
 ### Sample controller action
 
 ```ruby

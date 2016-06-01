@@ -9,7 +9,6 @@ require 'reqres_rspec/formatters/json'
 require 'reqres_rspec/formatters/pdf'
 require 'reqres_rspec/uploaders'
 require 'reqres_rspec/uploaders/amazon_s3'
-require 'reqres_rspec/uploaders/google_drive'
 
 if defined?(RSpec) && ENV['REQRES_RSPEC'] == '1'
   collector = ReqresRspec::Collector.new
