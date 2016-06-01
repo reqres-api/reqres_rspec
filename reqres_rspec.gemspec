@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'coderay'
   spec.add_dependency 'mime-types'
   spec.add_dependency 'aws-sdk-core', '~> 2.0'
-  spec.add_dependency 'google_drive'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'

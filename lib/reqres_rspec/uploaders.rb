@@ -10,8 +10,7 @@ module ReqresRspec
       if defined?(VCR)
         VCR.configure do |c|
           c.ignore_request do |request|
-            URI(request.uri).host == 's3.amazonaws.com' ||
-              URI(request.uri).host.include?('google')
+            URI(request.uri).host == 's3.amazonaws.com'
           end
         end
       end
