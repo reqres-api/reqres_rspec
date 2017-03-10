@@ -46,6 +46,7 @@ module ReqresRspec
       PATH_INFO
       QUERY_STRING
       rack.
+      raven.requested_at
       RAW_POST_DATA
       REMOTE_ADDR
       REQUEST_METHOD
