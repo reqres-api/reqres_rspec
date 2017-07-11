@@ -201,3 +201,12 @@ end
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Push gem
+
+Example:
+
+```
+gem build reqres_rspec.gemspec
+gem push reqres_rspec-0.2.6.gem
+```
