@@ -208,7 +208,7 @@ module ReqresRspec
     #   symbolized path => /api/users/:id
     #
     def get_symbolized_path(request)
-      request_path = request.env['REQUEST_URI'] || request.path
+      request_path = (request.env['REQUEST_URI'] || request.path).dup
       request_params =
         request.env['action_dispatch.request.parameters'] ||
         request.env['rack.request.form_hash'] ||
@@ -221,7 +221,7 @@ module ReqresRspec
           .each { |key, value| request_path.sub!("/#{value}", "/:#{key}") if value.to_s != '' }
       end
 
-      request_path
+      request_path.freeze
     end
 
     # returns action comments taken from controller file
