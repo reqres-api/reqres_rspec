@@ -1,4 +1,4 @@
-version 0.2.4
+version 0.2.7
 
 Updating aws-core-sdk to version 3
 
